@@ -1,6 +1,6 @@
 ---
 layout: about
-title: top
+title: about
 permalink: /
 description: <a href="https://preferred.jp/">株式会社Preferred Networks</a> 執行役員 インダストリーソリューション担当VP
 
@@ -9,6 +9,8 @@ profile:
   image: prof_pic.jpg
   address: >
     <p>大手町オフィス勤務 / 東京都内在住</p>
+    <p></p>
+    <p></p>
 
 news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
