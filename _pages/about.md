@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: Top
 permalink: /
 description: <a href="https://preferred.jp/">株式会社Preferred Networks</a> 執行役員 インダストリーソリューション担当VP
 
