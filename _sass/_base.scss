@@ -137,6 +137,7 @@ blockquote {
   .navbar-brand.social {
     padding-bottom: 0;
     padding-top: 0;
+
     font-size: 1.7rem;
     a {
       i::before {
@@ -431,14 +432,16 @@ footer.sticky-bottom {
           font-style: normal;
         }
       }
-      .links {
+      .periodical {
         a.btn {
           color: var(--global-text-color);
           border: 1px solid var(--global-text-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+          padding-top: 0.15rem;
+          padding-bottom: 0.07rem;
+	  margin-right: 0.05rem;
+	  margin-left: 0.05rem;
           &:hover {
             color: var(--global-theme-color);
             border-color: var(--global-theme-color);
