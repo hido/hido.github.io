@@ -153,19 +153,22 @@ github: [metadata]
 
 scholar:
 
-  last_name: Einstein
-  first_name: [Albert, A.]
-
+  last_name: Hido
+  first_name: Shohei
+ 
   style: apa
-  locale: ja
+  locale: en
 
   source: /_bibliography/
   bibliography: papers.bib
   bibliography_template: bib
 
-  replace_strings: true
+  replace_srings: true
   join_strings: true
-  bibtex_filters:
+  bibtex_filter:
+
+  sort_by: year
+  order: descending
 
   details_dir: bibliography
   details_layout: bibtex.html
