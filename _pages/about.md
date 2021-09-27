@@ -8,7 +8,7 @@ profile:
   align: right
   image: prof_pic.jpg
   address: >
-    <p>大手町オフィス勤務 / 東京都内在住</p>
+    <p></p>
     <p></p>
     <p></p>
 
