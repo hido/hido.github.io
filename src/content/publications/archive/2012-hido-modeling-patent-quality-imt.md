@@ -1,0 +1,7 @@
+---
+title: "Modeling patent quality: A system for large-scale patentability analysis using text mining"
+date: 2012-01-01
+venue: "Information and Media Technologies, 7(3):1180–1191"
+authors: "Shohei Hido, Shoko Suzuki, Risa Nishiyama, Takashi Imamichi, Rikiya Takahashi, Tetsuya Nasukawa, Tsuyoshi Idé, Yusuke Kanehira, Rinju Yohda, Takeshi Ueno, et al."
+type: publication
+---
