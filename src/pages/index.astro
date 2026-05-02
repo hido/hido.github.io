@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TalkCard from '../components/TalkCard.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+
+const allTalks = await getCollection('talks');
+const recentTalks = allTalks
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+
+const allPublications = await getCollection('publications');
+const recentPublications = allPublications
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 2);
+---
+
+<BaseLayout>
+  <section class="mb-16">
+    <div class="flex flex-col sm:flex-row gap-8 items-start">
+      <img
+        src="/images/prof_pic.jpg"
+        alt="比戸 将平"
+        class="w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover border border-gray-200 shrink-0 mx-auto sm:mx-0"
+      />
+      <div class="flex-1">
+        <h1 class="text-2xl font-medium mb-1">比戸 将平 <span class="text-base text-gray-500 font-normal">Shohei Hido</span></h1>
+        <p class="text-gray-600 text-sm mb-5">
+          <a href="https://preferred.jp/" target="_blank" rel="noopener">株式会社Preferred Networks</a> 執行役員 インダストリーソリューション担当VP
+        </p>
+        <div class="prose-jp space-y-4 text-[15px] leading-[1.9] text-gray-800">
+          <p>
+            2006年京都大学大学院情報学研究科修士修了、同年日本IBM東京基礎研究所に入社、機械学習とデータ解析技術の研究開発に従事。
+            2012年4月にPreferred Infrastructureに入社。2015年1月Preferred Networks AmericaにChief Research Officerとして転籍。
+            2018年1月にPreferred Networks本社へ帰任。同年12月に執行役員 研究開発担当VP。2020年10月より現職。
+          </p>
+          <p>
+            ビジネス担当執行役員としてトヨタ自動車様、ENEOS様、三井物産様、東京エレクトロン様を中心にお客様との業務提携・共同研究開発、
+            およびPFN自社の事業開発に従事。現在の主な担当事業は以下の通り。
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li><a href="https://preferred.jp/ja/projects/logistics/" target="_blank" rel="noopener">物流事業</a></li>
+            <li><a href="https://pvi.preferred-networks.jp/" target="_blank" rel="noopener">外観検査ソフトウェア（Preferred Networks Visual Inspection）</a></li>
+            <li><a href="https://preferred.jp/ja/news/pr20200903/" target="_blank" rel="noopener">地下資源探査事業（三井物産様と共同）</a></li>
+            <li>データサイエンス事業</li>
+            <li>知的財産</li>
+          </ul>
+          <p>
+            これまでの職務経験としては機械学習を用いたデータ解析・コンサルティング、大企業との包括的業務提携・共同開発推進、
+            新規事業の計画立案・遂行、研究開発組織の立ち上げ・拡大、外部研究機関との共同研究推進と社内制度整備、
+            アカデミアでの会社宣伝・人材採用活動、アメリカ子会社の立ち上げ・運営、
+            知財・法務を中心としたバックオフィス業務と研究開発活動の連携・社内規程立案、オープンソースソフトウェアの開発管理など。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <div class="flex items-baseline justify-between mb-5">
+      <h2 class="text-xl font-medium">最近の講演</h2>
+      <a href="/talks/" class="text-sm">すべて見る →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {recentTalks.map((talk) => (
+        <TalkCard
+          title={talk.data.title}
+          date={talk.data.date}
+          event={talk.data.event}
+          links={talk.data.links}
+          thumbnail={talk.data.thumbnail}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <div class="flex items-baseline justify-between mb-5">
+      <h2 class="text-xl font-medium">最近の論文</h2>
+      <a href="/publications/" class="text-sm">すべて見る →</a>
+    </div>
+    <ul class="border-t border-gray-100">
+      {recentPublications.map((p) => (
+        <PublicationItem
+          title={p.data.title}
+          date={p.data.date}
+          venue={p.data.venue}
+          authors={p.data.authors}
+          links={p.data.links}
+        />
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

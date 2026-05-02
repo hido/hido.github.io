@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Edit this list to add note / X (Twitter) / Medium articles, etc.
+const links: { title: string; url: string; source: string; date?: string }[] = [
+  // {
+  //   title: '記事タイトル',
+  //   url: 'https://note.com/...',
+  //   source: 'note',
+  //   date: '2025-01-01',
+  // },
+];
+---
+
+<BaseLayout title="Blog — 比戸 将平">
+  <h1 class="text-2xl font-medium mb-2">Blog</h1>
+  <p class="text-sm text-gray-500 mb-8">
+    note や X（Twitter）など外部メディアに掲載された記事へのリンクをまとめています。
+  </p>
+
+  <div class="flex gap-4 mb-8">
+    <a href="https://note.com/" target="_blank" rel="noopener" class="text-sm border border-gray-300 rounded px-3 py-1.5 hover:border-gray-500">
+      note を見る →
+    </a>
+    <a href="https://twitter.com/sla" target="_blank" rel="noopener" class="text-sm border border-gray-300 rounded px-3 py-1.5 hover:border-gray-500">
+      X / Twitter を見る →
+    </a>
+  </div>
+
+  {links.length === 0 ? (
+    <p class="text-gray-500 text-sm">準備中です。</p>
+  ) : (
+    <ul class="border-t border-gray-100">
+      {links.map((item) => (
+        <li class="py-3 border-b border-gray-100">
+          <a href={item.url} target="_blank" rel="noopener" class="text-base">
+            {item.title}
+          </a>
+          <p class="text-xs text-gray-500 mt-1">
+            {item.source}{item.date ? ` · ${item.date}` : ''}
+          </p>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
