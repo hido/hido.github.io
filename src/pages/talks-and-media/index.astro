@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TalkCard from '../../components/TalkCard.astro';
+
+type Item = {
+  id: string;
+  title: string;
+  date?: Date;
+  subtitle: string;
+  kind: 'talk' | 'press';
+  links?: {
+    slides?: string;
+    web?: string;
+    video?: string;
+    report?: string;
+  };
+  thumbnail?: string;
+};
+
+const talks = await getCollection('talks');
+const press = await getCollection('press');
+
+const items: Item[] = [
+  ...talks.map((t) => ({
+    id: t.id,
+    title: t.data.title,
+    date: t.data.date,
+    subtitle: t.data.event,
+    kind: 'talk' as const,
+    links: t.data.links,
+    thumbnail: t.data.thumbnail,
+  })),
+  ...press.map((p) => ({
+    id: p.id,
+    title: p.data.title,
+    date: p.data.date,
+    subtitle: p.data.outlet,
+    kind: 'press' as const,
+    links: { web: p.data.url },
+  })),
+];
+
+// Sort by date desc; undated items go to the end.
+items.sort((a, b) => {
+  const at = a.date ? a.date.getTime() : -Infinity;
+  const bt = b.date ? b.date.getTime() : -Infinity;
+  return bt - at;
+});
+
+// Group by year (>=2023) or 'archive' (older or undated).
+const grouped = new Map<string, Item[]>();
+for (const it of items) {
+  const y = it.date?.getFullYear();
+  const key = y && y >= 2023 ? String(y) : 'archive';
+  if (!grouped.has(key)) grouped.set(key, []);
+  grouped.get(key)!.push(it);
+}
+
+const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
+  if (a === 'archive') return 1;
+  if (b === 'archive') return -1;
+  return Number(b) - Number(a);
+});
+---
+
+<BaseLayout title="講演・メディア掲載 — 比戸 将平">
+  <h1 class="text-2xl font-medium mb-2">講演・メディア掲載</h1>
+  <p class="text-sm text-gray-500 mb-8">登壇イベントと、新聞・専門メディアによる記事・インタビュー。</p>
+
+  {orderedKeys.map((key) => (
+    <section class="mb-12">
+      <h2 class="text-lg font-medium border-b border-gray-200 pb-2 mb-5">
+        {key === 'archive' ? '〜2022 (Archive)' : `${key}年`}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {grouped.get(key)!.map((it) => (
+          <TalkCard
+            title={it.title}
+            date={it.date}
+            event={it.subtitle}
+            kind={it.kind}
+            links={it.links}
+            thumbnail={it.thumbnail}
+          />
+        ))}
+      </div>
+    </section>
+  ))}
+</BaseLayout>
