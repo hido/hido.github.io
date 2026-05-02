@@ -4,4 +4,6 @@ date: 2019-08-20
 venue: "US Patent 10,387,794"
 authors: "Daisuke Okanohara, Justin B. Clayton, Toru Nishikawa, Shohei Hido, Nobuyuki Kubota, Nobuyuki Ota, Seiya Tokui"
 type: publication
+links:
+  paper: "https://patents.google.com/patent/US10387794"
 ---
