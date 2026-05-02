@@ -4,4 +4,6 @@ date: 2013-11-19
 venue: "US Patent 8,588,531"
 authors: "Shohei Hido, Hisashi Kashima"
 type: publication
+links:
+  paper: "https://patents.google.com/patent/US8588531"
 ---

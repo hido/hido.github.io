@@ -4,4 +4,6 @@ date: 2020-06-09
 venue: "US Patent 10,678,911"
 authors: "Karim Hamzaoui, Shohei Hido, Shoko Suzuki, Sachiko Yoshihama"
 type: publication
+links:
+  paper: "https://patents.google.com/patent/US10678911"
 ---
