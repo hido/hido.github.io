@@ -8,7 +8,7 @@ type Item = {
   title: string;
   date?: Date;
   subtitle: string;
-  kind: 'talk' | 'press';
+  tag: string;
   links?: {
     slides?: string;
     web?: string;
@@ -27,7 +27,7 @@ const items: Item[] = [
     title: t.data.title,
     date: t.data.date,
     subtitle: t.data.event,
-    kind: 'talk' as const,
+    tag: t.data.tag,
     links: t.data.links,
     thumbnail: t.data.thumbnail,
   })),
@@ -36,7 +36,7 @@ const items: Item[] = [
     title: p.data.title,
     date: p.data.date,
     subtitle: p.data.outlet,
-    kind: 'press' as const,
+    tag: p.data.tag,
     links: { web: p.data.url },
   })),
 ];
@@ -79,7 +79,7 @@ const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
             title={it.title}
             date={it.date}
             event={it.subtitle}
-            kind={it.kind}
+            tag={it.tag}
             links={it.links}
             thumbnail={it.thumbnail}
           />

@@ -3,6 +3,7 @@ title: "技術覇権時代におけるイノベーションの生み出し方　
 date: 2019-07-01
 event: "日経ビジネスイノベーションフォーラム・ＴＭ研究会シンポジウム"
 type: talk
+tag: 講演
 links:
   web: "https://events.nikkei.co.jp/18963/"
 ---
