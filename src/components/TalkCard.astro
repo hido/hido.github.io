@@ -3,7 +3,7 @@ interface Props {
   title: string;
   date?: Date;
   event: string;
-  kind?: 'talk' | 'press';
+  tag?: string;
   links?: {
     slides?: string;
     web?: string;
@@ -14,17 +14,25 @@ interface Props {
   compact?: boolean;
 }
 
-const { title, date, event, kind = 'talk', links, thumbnail, compact = false } = Astro.props;
+const { title, date, event, tag, links, thumbnail, compact = false } = Astro.props;
 
 const dateStr = date
   ? new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long' }).format(date)
   : '';
+
+// Color presets per known tag. Unknown tags fall back to neutral.
+// Add new entries as new tag values appear in content frontmatter.
+const tagColors: Record<string, string> = {
+  '講演': 'bg-sky-50 text-sky-800 border-sky-200',
+  'メディア': 'bg-amber-50 text-amber-800 border-amber-200',
+};
+const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray-200' : '';
 ---
 
 <article class={`group relative border border-gray-200 rounded-lg overflow-hidden hover:border-gray-400 transition-colors ${compact ? '' : ''}`}>
-  {kind === 'press' && (
-    <span class="absolute top-2 right-2 z-10 inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-      メディア
+  {tag && (
+    <span class={`absolute top-2 right-2 z-10 inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${badgeColor}`}>
+      {tag}
     </span>
   )}
   {thumbnail && (

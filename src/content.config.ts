@@ -19,6 +19,9 @@ const talks = defineCollection({
     date: z.coerce.date(),
     event: z.string(),
     type: z.literal('talk'),
+    // Free-form label shown as a card badge. Open-ended so future categories
+    // (基調講演, パネル, etc.) can be introduced without a schema change.
+    tag: z.string().default('講演'),
     links: linkSchema,
     thumbnail: z.string().optional(),
   }),
@@ -44,6 +47,7 @@ const press = defineCollection({
     outlet: z.string(),
     url: z.string().url(),
     type: z.literal('press'),
+    tag: z.string().default('メディア'),
   }),
 });
 
