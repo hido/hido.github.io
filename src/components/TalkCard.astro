@@ -7,6 +7,7 @@ interface Props {
     slides?: string;
     web?: string;
     video?: string;
+    report?: string;
   };
   thumbnail?: string;
   compact?: boolean;
@@ -35,6 +36,7 @@ const dateStr = new Intl.DateTimeFormat('ja-JP', {
         {links.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
         {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
         {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
+        {links.report && <a href={links.report} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Report</a>}
       </div>
     )}
   </div>
