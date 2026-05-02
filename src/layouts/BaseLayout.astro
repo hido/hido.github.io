@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  width?: 'narrow' | 'wide';
+}
+
+const {
+  title = '比戸 将平 — Shohei Hido',
+  description = 'Shohei Hido — ダイキン工業 テクノロジー・イノベーションセンター 技師長',
+  width = 'wide',
+} = Astro.props;
+
+const mainClass =
+  width === 'wide'
+    ? 'max-w-6xl mx-auto px-6 py-10'
+    : 'max-w-3xl mx-auto px-6 py-10';
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌅%3C/text%3E%3C/svg%3E" />
+    <title>{title}</title>
+  </head>
+  <body class="text-gray-900 bg-white">
+    <SiteHeader />
+    <main class={mainClass}>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

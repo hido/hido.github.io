@@ -1,0 +1,37 @@
+---
+const { pathname } = Astro.url;
+const navItems = [
+  { href: '/', label: 'Top' },
+  { href: '/talks/', label: '講演' },
+  { href: '/publications/', label: '論文' },
+  { href: '/blog/', label: 'Blog' },
+];
+
+function isActive(href: string) {
+  if (href === '/') return pathname === '/' || pathname === '';
+  return pathname === href || pathname === href.replace(/\/$/, '');
+}
+---
+
+<header class="border-b border-gray-200 bg-white/90 backdrop-blur sticky top-0 z-10">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-medium text-lg tracking-wide text-gray-900 no-underline hover:no-underline">
+      比戸 将平 <span class="text-gray-400 text-sm font-normal">— Shohei Hido</span>
+    </a>
+    <nav class="flex gap-5 text-sm">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={[
+            'no-underline hover:no-underline transition-colors',
+            isActive(item.href)
+              ? 'text-gray-900 font-medium border-b-2 border-gray-900 pb-0.5'
+              : 'text-gray-600 hover:text-gray-900',
+          ].join(' ')}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

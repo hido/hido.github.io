@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  event: string;
+  links?: {
+    slides?: string;
+    web?: string;
+    video?: string;
+  };
+  thumbnail?: string;
+  compact?: boolean;
+}
+
+const { title, date, event, links, thumbnail, compact = false } = Astro.props;
+
+const dateStr = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+}).format(date);
+---
+
+<article class={`group border border-gray-200 rounded-lg overflow-hidden hover:border-gray-400 transition-colors ${compact ? '' : ''}`}>
+  {thumbnail && (
+    <div class="aspect-video bg-gray-100 overflow-hidden">
+      <img src={thumbnail} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+    </div>
+  )}
+  <div class="p-4">
+    <p class="text-xs text-gray-500 mb-1.5">{dateStr}</p>
+    <h3 class="text-base font-medium leading-snug text-gray-900 mb-2">{title}</h3>
+    <p class="text-sm text-gray-600 leading-relaxed">{event}</p>
+    {links && (
+      <div class="flex gap-3 mt-3 text-xs">
+        {links.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
+        {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
+        {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
+      </div>
+    )}
+  </div>
+</article>

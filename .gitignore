@@ -1,10 +1,30 @@
+# Astro / Node
+dist/
+.astro/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.production
+
+# OS
+.DS_Store
+.DS_store
+
+# Editors
+.vscode/
+.idea/
+
+# Legacy Jekyll
 _site
 .bundle
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
-.DS_store
-.ruby-version
 .tweet-cache
+.ruby-version
 Gemfile.lock
 vendor

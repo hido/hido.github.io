@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TalkCard from '../../components/TalkCard.astro';
+
+const all = await getCollection('talks');
+const sorted = all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Group by year (or 'archive' for pre-2023)
+const grouped = new Map<string, typeof sorted>();
+for (const t of sorted) {
+  const y = t.data.date.getFullYear();
+  const key = y >= 2023 ? String(y) : 'archive';
+  if (!grouped.has(key)) grouped.set(key, []);
+  grouped.get(key)!.push(t);
+}
+
+const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
+  if (a === 'archive') return 1;
+  if (b === 'archive') return -1;
+  return Number(b) - Number(a);
+});
+---
+
+<BaseLayout title="講演 — 比戸 将平">
+  <h1 class="text-2xl font-medium mb-8">講演</h1>
+
+  {orderedKeys.map((key) => (
+    <section class="mb-12">
+      <h2 class="text-lg font-medium border-b border-gray-200 pb-2 mb-5">
+        {key === 'archive' ? '〜2022 (Archive)' : `${key}年`}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {grouped.get(key)!.map((talk) => (
+          <TalkCard
+            title={talk.data.title}
+            date={talk.data.date}
+            event={talk.data.event}
+            links={talk.data.links}
+            thumbnail={talk.data.thumbnail}
+          />
+        ))}
+      </div>
+    </section>
+  ))}
+</BaseLayout>
