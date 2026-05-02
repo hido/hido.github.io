@@ -7,6 +7,7 @@ const linkSchema = z
     paper: z.string().url().optional(),
     web: z.string().url().optional(),
     video: z.string().url().optional(),
+    report: z.string().url().optional(),
   })
   .partial()
   .optional();
