@@ -5,5 +5,5 @@ event: "未踏会議2026 MEET DAY（東京ミッドタウン・ホール）"
 type: talk
 links:
   web: "https://www.ipa.go.jp/jinzai/mitou/event/mitoukaigi2026.html"
-  video: "https://youtube.com/live/9fpJx0bha5k"
+  video: "https://www.youtube.com/watch?v=M6n4_g0r67I&t=3379s"
 ---
