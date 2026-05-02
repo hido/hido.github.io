@@ -30,7 +30,7 @@ const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
       <h2 class="text-lg font-medium border-b border-gray-200 pb-2 mb-5">
         {key === 'archive' ? '〜2022 (Archive)' : `${key}年`}
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {grouped.get(key)!.map((talk) => (
           <TalkCard
             title={talk.data.title}

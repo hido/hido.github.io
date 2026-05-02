@@ -61,7 +61,7 @@ const recentPublications = allPublications
       <h2 class="text-xl font-medium">最近の講演</h2>
       <a href="/talks/" class="text-sm">すべて見る →</a>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {recentTalks.map((talk) => (
         <TalkCard
           title={talk.data.title}
@@ -79,7 +79,7 @@ const recentPublications = allPublications
       <h2 class="text-xl font-medium">最近の論文</h2>
       <a href="/publications/" class="text-sm">すべて見る →</a>
     </div>
-    <ul class="border-t border-gray-100">
+    <ul class="border-t border-gray-100 max-w-4xl">
       {recentPublications.map((p) => (
         <PublicationItem
           title={p.data.title}

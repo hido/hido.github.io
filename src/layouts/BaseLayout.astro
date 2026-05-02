@@ -6,12 +6,19 @@ import SiteFooter from '../components/SiteFooter.astro';
 interface Props {
   title?: string;
   description?: string;
+  width?: 'narrow' | 'wide';
 }
 
 const {
   title = '比戸 将平 — Shohei Hido',
   description = 'Shohei Hido — Preferred Networks 執行役員 インダストリーソリューション担当VP',
+  width = 'wide',
 } = Astro.props;
+
+const mainClass =
+  width === 'wide'
+    ? 'max-w-6xl mx-auto px-6 py-10'
+    : 'max-w-3xl mx-auto px-6 py-10';
 ---
 
 <!doctype html>
@@ -28,7 +35,7 @@ const {
   </head>
   <body class="text-gray-900 bg-white">
     <SiteHeader />
-    <main class="max-w-3xl mx-auto px-6 py-10">
+    <main class={mainClass}>
       <slot />
     </main>
     <SiteFooter />
