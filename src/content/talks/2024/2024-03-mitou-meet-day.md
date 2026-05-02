@@ -7,4 +7,5 @@ tag: 講演
 links:
   web: "https://www.ipa.go.jp/jinzai/mitou/event/mitoukaigi2024.html"
   video: "https://www.youtube.com/live/MJPg4eyicQY?t=13193"
+  report: "https://tokyochips.tokyo/2024/03/24746/"
 ---
