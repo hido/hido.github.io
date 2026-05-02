@@ -36,4 +36,15 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { talks, publications };
+const press = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/press' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date().optional(),
+    outlet: z.string(),
+    url: z.string().url(),
+    type: z.literal('press'),
+  }),
+});
+
+export const collections = { talks, publications, press };

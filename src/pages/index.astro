@@ -4,10 +4,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TalkCard from '../components/TalkCard.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 
+type RecentItem = {
+  id: string;
+  title: string;
+  date?: Date;
+  subtitle: string;
+  kind: 'talk' | 'press';
+  links?: {
+    slides?: string;
+    web?: string;
+    video?: string;
+    report?: string;
+  };
+  thumbnail?: string;
+};
+
 const allTalks = await getCollection('talks');
-const recentTalks = allTalks
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 4);
+const allPress = await getCollection('press');
+const recentItems: RecentItem[] = [
+  ...allTalks.map((t) => ({
+    id: t.id,
+    title: t.data.title,
+    date: t.data.date,
+    subtitle: t.data.event,
+    kind: 'talk' as const,
+    links: t.data.links,
+    thumbnail: t.data.thumbnail,
+  })),
+  ...allPress.map((p) => ({
+    id: p.id,
+    title: p.data.title,
+    date: p.data.date,
+    subtitle: p.data.outlet,
+    kind: 'press' as const,
+    links: { web: p.data.url },
+  })),
+];
+recentItems.sort((a, b) => {
+  const at = a.date ? a.date.getTime() : -Infinity;
+  const bt = b.date ? b.date.getTime() : -Infinity;
+  return bt - at;
+});
+const recentTopItems = recentItems.slice(0, 4);
 
 const allPublications = await getCollection('publications');
 const recentPublications = allPublications
@@ -48,17 +86,18 @@ const recentPublications = allPublications
 
   <section class="mb-16">
     <div class="flex items-baseline justify-between mb-5">
-      <h2 class="text-xl font-medium">最近の講演</h2>
-      <a href="/talks/" class="text-sm">すべて見る →</a>
+      <h2 class="text-xl font-medium">最近の講演・メディア掲載</h2>
+      <a href="/talks-and-media/" class="text-sm">すべて見る →</a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {recentTalks.map((talk) => (
+      {recentTopItems.map((it) => (
         <TalkCard
-          title={talk.data.title}
-          date={talk.data.date}
-          event={talk.data.event}
-          links={talk.data.links}
-          thumbnail={talk.data.thumbnail}
+          title={it.title}
+          date={it.date}
+          event={it.subtitle}
+          kind={it.kind}
+          links={it.links}
+          thumbnail={it.thumbnail}
         />
       ))}
     </div>
