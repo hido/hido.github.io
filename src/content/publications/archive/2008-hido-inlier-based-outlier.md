@@ -5,5 +5,5 @@ venue: "IEEE International Conference on Data Mining (ICDM 2008), 223–232"
 authors: "Shohei Hido, Yuta Tsuboi, Hisashi Kashima, Masashi Sugiyama, Takafumi Kanamori"
 type: publication
 links:
-  paper: "https://www.computer.org/csdl/proceedings-article/icdm/2008/35021a223"
+  paper: "http://www.ms.k.u-tokyo.ac.jp/sugi/2008/ICDM2008.pdf"
 ---

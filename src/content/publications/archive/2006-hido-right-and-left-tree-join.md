@@ -4,4 +4,6 @@ date: 2006-01-01
 venue: "Technical Report"
 authors: "比戸将平"
 type: publication
+links:
+  paper: "https://dbsj.org/wp-content/uploads/journal/vol4/no1/hido.pdf"
 ---
