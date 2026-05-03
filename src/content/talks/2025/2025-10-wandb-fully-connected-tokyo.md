@@ -6,4 +6,5 @@ type: talk
 tag: 講演
 links:
   web: "https://wandb.ai/site/resources/events/fully-connected/tokyo/"
+  video: "https://www.youtube.com/watch?v=BiCNeNZEJe8"
 ---
