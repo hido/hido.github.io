@@ -56,12 +56,12 @@ recentItems.sort((a, b) => {
   const bt = b.date ? b.date.getTime() : -Infinity;
   return bt - at;
 });
-const recentTopItems = recentItems.slice(0, 4);
+const recentTopItems = recentItems.slice(0, 8);
 
 const allPublications = await getCollection('publications');
 const recentPublications = allPublications
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 2);
+  .slice(0, 5);
 ---
 
 <BaseLayout>
