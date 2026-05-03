@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
+import YearHeading from '../../components/YearHeading.astro';
 
 const all = await getCollection('publications');
 const sorted = all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -27,9 +28,7 @@ const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
 
   {orderedKeys.map((key) => (
     <section class="mb-10">
-      <h2 class="text-lg font-medium border-b border-gray-200 pb-2 mb-3">
-        {key === 'archive' ? '〜2022 (Archive)' : `${key}年`}
-      </h2>
+      <YearHeading yearKey={key} count={grouped.get(key)!.length} />
       <ul>
         {grouped.get(key)!.map((p) => (
           <PublicationItem
