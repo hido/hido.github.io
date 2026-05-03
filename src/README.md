@@ -21,6 +21,10 @@ npm run preview  # build 後のローカル確認
 
 スキーマは `src/content.config.ts` を参照。
 
+## 外部リンクの Wayback Machine 保全
+
+新カード追加・URL 変更時は必ず `npm run wayback` を実行して `src/data/wayback.json` を更新してください。詳細な運用手順・リンク切れ復旧方法・コマンド一覧は [`docs/wayback-policy.md`](../docs/wayback-policy.md) を参照。
+
 ## デプロイ
 
 `main` への push で `.github/workflows/deploy.yml` が走り、GitHub Pages に自動公開されます。
