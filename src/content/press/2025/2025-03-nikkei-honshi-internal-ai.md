@@ -5,4 +5,5 @@ outlet: "日本経済新聞（本紙）"
 url: "https://www.nikkei.com/article/DGXZQOUF186OJ0Y5A310C2000000/"
 type: press
 tag: メディア
+thumbnail: /thumbnails/press-2025-nikkei-honshi.jpg
 ---
