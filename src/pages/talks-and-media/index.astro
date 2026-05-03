@@ -63,14 +63,36 @@ const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
   if (b === 'archive') return -1;
   return Number(b) - Number(a);
 });
+
+// Distinct tags for filter UI; keep stable order with talks first.
+const allTags = Array.from(new Set(items.map((it) => it.tag)));
 ---
 
 <BaseLayout title="講演・メディア掲載 — 比戸 将平">
   <h1 class="text-2xl font-medium mb-2">講演・メディア掲載</h1>
-  <p class="text-sm text-gray-500 mb-8">登壇イベントと、新聞・専門メディアによる記事・インタビュー。</p>
+  <p class="text-sm text-gray-500 mb-6">登壇イベントと、新聞・専門メディアによる記事・インタビュー。</p>
+
+  <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="タグでフィルタ" id="tag-filter">
+    <button
+      type="button"
+      data-filter="all"
+      class="filter-btn is-active px-3 py-1 text-xs rounded-full border border-gray-300 text-gray-700 hover:border-gray-500 transition-colors"
+    >
+      すべて <span class="text-gray-400 ml-1" data-count="all">{items.length}</span>
+    </button>
+    {allTags.map((t) => (
+      <button
+        type="button"
+        data-filter={t}
+        class="filter-btn px-3 py-1 text-xs rounded-full border border-gray-300 text-gray-700 hover:border-gray-500 transition-colors"
+      >
+        {t} <span class="text-gray-400 ml-1" data-count={t}>{items.filter((it) => it.tag === t).length}</span>
+      </button>
+    ))}
+  </div>
 
   {orderedKeys.map((key) => (
-    <section class="mb-12">
+    <section class="mb-12" data-year-section={key}>
       <YearHeading yearKey={key} count={grouped.get(key)!.length} />
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {grouped.get(key)!.map((it) => (
@@ -87,3 +109,53 @@ const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
     </section>
   ))}
 </BaseLayout>
+
+<style>
+  .filter-btn.is-active {
+    background-color: rgb(17 24 39); /* gray-900 */
+    color: white;
+    border-color: rgb(17 24 39);
+  }
+  .filter-btn.is-active span[data-count] {
+    color: rgb(156 163 175); /* gray-400 stays subtle on dark bg */
+  }
+</style>
+
+<script>
+  // Tag filter for /talks-and-media/.
+  // Reads ?tag= from URL on load, syncs button state, and toggles
+  // visibility on cards by their data-tag attribute. Sections with
+  // zero visible cards collapse so empty year headings don't dangle.
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('#tag-filter .filter-btn'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('article[data-tag]'));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-year-section]'));
+
+  function applyFilter(filter: string) {
+    for (const card of cards) {
+      const tag = card.dataset.tag ?? '';
+      const show = filter === 'all' || tag === filter;
+      card.style.display = show ? '' : 'none';
+    }
+    for (const section of sections) {
+      const visible = section.querySelectorAll('article[data-tag]:not([style*="display: none"])').length;
+      section.style.display = visible === 0 ? 'none' : '';
+    }
+    for (const btn of buttons) {
+      btn.classList.toggle('is-active', btn.dataset.filter === filter);
+    }
+    const url = new URL(window.location.href);
+    if (filter === 'all') url.searchParams.delete('tag');
+    else url.searchParams.set('tag', filter);
+    history.replaceState(null, '', url.toString());
+  }
+
+  for (const btn of buttons) {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter ?? 'all'));
+  }
+
+  // Initial state from URL ?tag=...
+  const initial = new URL(window.location.href).searchParams.get('tag') ?? 'all';
+  if (buttons.some((b) => b.dataset.filter === initial)) {
+    applyFilter(initial);
+  }
+</script>
