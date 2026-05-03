@@ -1,0 +1,21 @@
+---
+interface Props {
+  yearKey: string;     // "2025" | "2024" | ... | "archive"
+  count?: number;      // optional item count to show
+}
+
+const { yearKey, count } = Astro.props;
+const isArchive = yearKey === 'archive';
+const label = isArchive ? 'Archive' : yearKey;
+const sublabel = isArchive ? '〜2022' : '年';
+---
+
+<h2 class="flex items-baseline gap-3 mb-6">
+  <span class="self-center w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+  <span class="text-3xl font-medium tracking-tight text-gray-900 tabular-nums">{label}</span>
+  <span class="text-sm text-gray-500">{sublabel}</span>
+  {count !== undefined && (
+    <span class="text-xs text-gray-400">{count}件</span>
+  )}
+  <span class="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent"></span>
+</h2>
