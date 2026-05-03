@@ -16,12 +16,14 @@ type RecentItem = {
     web?: string;
     video?: string;
     report?: string;
+    press?: string;
   };
   thumbnail?: string;
 };
 
 const allTalks = await getCollection('talks');
 const allPress = await getCollection('press');
+const allAwards = await getCollection('awards');
 const recentItems: RecentItem[] = [
   ...allTalks.map((t) => ({
     id: t.id,
@@ -39,6 +41,14 @@ const recentItems: RecentItem[] = [
     subtitle: p.data.outlet,
     tag: p.data.tag,
     links: { web: p.data.url },
+  })),
+  ...allAwards.map((a) => ({
+    id: a.id,
+    title: a.data.title,
+    date: a.data.date,
+    subtitle: a.data.award,
+    tag: a.data.tag,
+    links: a.data.links,
   })),
 ];
 recentItems.sort((a, b) => {

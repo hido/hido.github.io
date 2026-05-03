@@ -9,6 +9,7 @@ interface Props {
     web?: string;
     video?: string;
     report?: string;
+    press?: string;
   };
   thumbnail?: string;
   compact?: boolean;
@@ -25,6 +26,7 @@ const dateStr = date
 const tagColors: Record<string, string> = {
   '講演': 'bg-sky-50 text-sky-800 border-sky-200',
   'メディア': 'bg-amber-50 text-amber-800 border-amber-200',
+  '表彰': 'bg-rose-50 text-rose-800 border-rose-200',
 };
 const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray-200' : '';
 ---
@@ -47,6 +49,7 @@ const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray
     {links && (
       <div class="flex gap-3 mt-3 text-xs">
         {links.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
+        {links.press && <a href={links.press} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Press</a>}
         {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
         {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
         {links.report && <a href={links.report} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Report</a>}
