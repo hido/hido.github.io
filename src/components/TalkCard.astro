@@ -29,7 +29,7 @@ const tagColors: Record<string, string> = {
 const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray-200' : '';
 ---
 
-<article class={`group relative border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
+<article data-tag={tag} class={`group relative border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
   {tag && (
     <span class={`absolute top-2 right-2 z-10 inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${badgeColor}`}>
       {tag}
