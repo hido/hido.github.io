@@ -4,6 +4,7 @@ date: 2025-10-31
 event: "W&B Fully Connected 2025 Tokyo（Day 2）"
 type: talk
 tag: 講演
+thumbnail: /thumbnails/talk-2025-wandb-fully-connected.jpg
 links:
   web: "https://wandb.ai/site/resources/events/fully-connected/tokyo/"
   video: "https://www.youtube.com/watch?v=BiCNeNZEJe8"

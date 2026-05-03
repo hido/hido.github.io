@@ -5,4 +5,5 @@ outlet: "JBpress"
 url: "https://jbpress.ismedia.jp/articles/-/77907"
 type: press
 tag: メディア
+thumbnail: /thumbnails/press-2023-jbpress.jpg
 ---

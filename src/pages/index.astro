@@ -41,6 +41,7 @@ const recentItems: RecentItem[] = [
     subtitle: p.data.outlet,
     tag: p.data.tag,
     links: { web: p.data.url },
+    thumbnail: p.data.thumbnail,
   })),
   ...allAwards.map((a) => ({
     id: a.id,
@@ -49,6 +50,7 @@ const recentItems: RecentItem[] = [
     subtitle: a.data.award,
     tag: a.data.tag,
     links: a.data.links,
+    thumbnail: a.data.thumbnail,
   })),
 ];
 recentItems.sort((a, b) => {

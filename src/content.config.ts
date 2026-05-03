@@ -49,6 +49,7 @@ const press = defineCollection({
     url: z.string().url(),
     type: z.literal('press'),
     tag: z.string().default('メディア'),
+    thumbnail: z.string().optional(),
   }),
 });
 
@@ -61,6 +62,7 @@ const awards = defineCollection({
     type: z.literal('award'),
     tag: z.string().default('表彰'),
     links: linkSchema,
+    thumbnail: z.string().optional(),
   }),
 });
 

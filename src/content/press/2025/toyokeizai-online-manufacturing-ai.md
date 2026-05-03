@@ -5,4 +5,5 @@ outlet: "東洋経済オンライン"
 url: "https://toyokeizai.net/articles/-/860345"
 type: press
 tag: メディア
+thumbnail: /thumbnails/press-2025-toyokeizai.jpg
 ---

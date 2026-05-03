@@ -5,4 +5,5 @@ outlet: "日経クロステック"
 url: "https://xtech.nikkei.com/atcl/nxt/column/18/03076/052200009/"
 type: press
 tag: メディア
+thumbnail: /thumbnails/press-2025-nikkei-xtech.jpg
 ---
