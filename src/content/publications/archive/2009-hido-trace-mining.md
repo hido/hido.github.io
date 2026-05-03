@@ -5,5 +5,5 @@ venue: "Pacific-Asia Conference on Knowledge Discovery and Data Mining (PAKDD 20
 authors: "Shohei Hido, Hirofumi Matsuzawa, Fumihiko Kitayama, Masayuki Numao"
 type: publication
 links:
-  paper: "https://link.springer.com/chapter/10.1007/978-3-642-01307-2_69"
+  paper: "https://link.springer.com/chapter/10.1007/978-3-642-01307-2_74"
 ---
