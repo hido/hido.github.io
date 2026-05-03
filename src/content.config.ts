@@ -8,6 +8,7 @@ const linkSchema = z
     web: z.string().url().optional(),
     video: z.string().url().optional(),
     report: z.string().url().optional(),
+    press: z.string().url().optional(),
   })
   .partial()
   .optional();
@@ -51,4 +52,16 @@ const press = defineCollection({
   }),
 });
 
-export const collections = { talks, publications, press };
+const awards = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/awards' }),
+  schema: z.object({
+    title: z.string(),       // award headline shown as the card title
+    date: z.coerce.date(),
+    award: z.string(),       // organizer + program name + sub-info, shown as subtitle
+    type: z.literal('award'),
+    tag: z.string().default('表彰'),
+    links: linkSchema,
+  }),
+});
+
+export const collections = { talks, publications, press, awards };

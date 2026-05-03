@@ -15,12 +15,14 @@ type Item = {
     web?: string;
     video?: string;
     report?: string;
+    press?: string;
   };
   thumbnail?: string;
 };
 
 const talks = await getCollection('talks');
 const press = await getCollection('press');
+const awards = await getCollection('awards');
 
 const items: Item[] = [
   ...talks.map((t) => ({
@@ -39,6 +41,14 @@ const items: Item[] = [
     subtitle: p.data.outlet,
     tag: p.data.tag,
     links: { web: p.data.url },
+  })),
+  ...awards.map((a) => ({
+    id: a.id,
+    title: a.data.title,
+    date: a.data.date,
+    subtitle: a.data.award,
+    tag: a.data.tag,
+    links: a.data.links,
   })),
 ];
 
