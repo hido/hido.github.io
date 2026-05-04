@@ -6,4 +6,5 @@ authors: "Shohei Hido, Michiaki Tatsubori"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US9471882"
+thumbnail: "/thumbnails/pub-2016-hido-information-identification-relative-frequency.png"
 ---

@@ -6,4 +6,5 @@ authors: "Karim Hamzaoui, Shohei Hido, Shoko Suzuki, Rikiya Takahashi, Sachiko Y
 type: publication
 links:
   paper: "https://patents.google.com/patent/US9857775"
+thumbnail: "/thumbnails/pub-2018-hamzaoui-system-situation.png"
 ---

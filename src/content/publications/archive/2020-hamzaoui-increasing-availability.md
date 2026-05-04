@@ -6,4 +6,5 @@ authors: "Karim Hamzaoui, Shohei Hido, Shoko Suzuki, Sachiko Yoshihama"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US10678911"
+thumbnail: "/thumbnails/pub-2020-hamzaoui-increasing-availability.png"
 ---

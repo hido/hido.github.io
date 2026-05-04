@@ -6,4 +6,5 @@ authors: "Akinori Noma, Nobuaki Sarai, Hiroyuki Kawano, Shohei Hido"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US7516017"
+thumbnail: "/thumbnails/pub-2009-noma-biological-parameter-output.png"
 ---

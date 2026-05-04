@@ -6,4 +6,5 @@ authors: "Shohei Hido"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US9218572"
+thumbnail: "/thumbnails/pub-2015-hido-classifying-data.png"
 ---

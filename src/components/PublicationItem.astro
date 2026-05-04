@@ -53,10 +53,10 @@ const tagColor = tag === 'パテント'
           href={links?.paper ?? links?.web}
           target="_blank"
           rel="noopener"
-          class="block w-full aspect-[16/9] bg-gray-50 border border-gray-200 rounded overflow-hidden"
+          class="block w-full aspect-[16/9] bg-white border border-gray-200 rounded overflow-hidden"
           aria-label="サムネイル"
         >
-          <img src={thumbnail} alt="" class="w-full h-full object-cover" />
+          <img src={thumbnail} alt="" class="w-full h-full object-contain" />
         </a>
       )}
     </div>

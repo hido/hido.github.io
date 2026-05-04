@@ -6,4 +6,5 @@ authors: "Shohei Hido, Tsuyoshi Idé, Hisashi Kashima, Harunobu Kubo, Hirofumi M
 type: publication
 links:
   paper: "https://patents.google.com/patent/US8417648"
+thumbnail: "/thumbnails/pub-2013-hido-change-analysis.png"
 ---

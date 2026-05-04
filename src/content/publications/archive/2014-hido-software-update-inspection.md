@@ -6,4 +6,5 @@ authors: "Shohei Hido, Seiji Munetoh, Shoko Suzuki, Naohiko Uramoto, Sachiko Yos
 type: publication
 links:
   paper: "https://patents.google.com/patent/US8887146"
+thumbnail: "/thumbnails/pub-2014-hido-software-update-inspection.png"
 ---
