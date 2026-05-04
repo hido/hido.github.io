@@ -1,14 +1,26 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const linkSchema = z
+// Card-style links: every kind TalkCard renders. Used by talks and awards.
+const cardLinkSchema = z
   .object({
     slides: z.string().url().optional(),
-    paper: z.string().url().optional(),
     web: z.string().url().optional(),
     video: z.string().url().optional(),
     report: z.string().url().optional(),
     press: z.string().url().optional(),
+    paper: z.string().url().optional(),
+  })
+  .partial()
+  .optional();
+
+// Publications only surface paper / web / slides through PublicationItem,
+// so keep the schema honest about that.
+const publicationLinkSchema = z
+  .object({
+    paper: z.string().url().optional(),
+    web: z.string().url().optional(),
+    slides: z.string().url().optional(),
   })
   .partial()
   .optional();
@@ -23,7 +35,7 @@ const talks = defineCollection({
     // Free-form label shown as a card badge. Open-ended so future categories
     // (基調講演, パネル, etc.) can be introduced without a schema change.
     tag: z.string().default('講演'),
-    links: linkSchema,
+    links: cardLinkSchema,
     thumbnail: z.string().optional(),
   }),
 });
@@ -36,7 +48,7 @@ const publications = defineCollection({
     venue: z.string(),
     authors: z.string(),
     type: z.literal('publication'),
-    links: linkSchema,
+    links: publicationLinkSchema,
   }),
 });
 
@@ -61,7 +73,7 @@ const awards = defineCollection({
     award: z.string(),       // organizer + program name + sub-info, shown as subtitle
     type: z.literal('award'),
     tag: z.string().default('表彰'),
-    links: linkSchema,
+    links: cardLinkSchema,
     thumbnail: z.string().optional(),
   }),
 });
