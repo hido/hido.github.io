@@ -90,6 +90,8 @@ const tagCounts = Object.fromEntries(
     for (const section of sections) {
       const visible = section.querySelectorAll('li[data-tag]:not([style*="display: none"])').length;
       section.style.display = visible === 0 ? 'none' : '';
+      const counter = section.querySelector('[data-year-count]');
+      if (counter) counter.textContent = `${visible}件`;
     }
     for (const btn of buttons) {
       btn.classList.toggle('is-active', btn.dataset.filter === filter);
