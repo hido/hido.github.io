@@ -29,6 +29,17 @@ const tagColors: Record<string, string> = {
   '表彰': 'bg-rose-50 text-rose-800 border-rose-200',
 };
 const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray-200' : '';
+
+// Long labels in the dialog so links read like a menu rather than badges.
+const linkLabels: Record<string, string> = {
+  web: '公式サイト・イベントページ',
+  press: 'プレスリリース',
+  slides: 'スライド',
+  video: '動画',
+  report: 'レポート・記事',
+  paper: '論文',
+};
+const linkOrder = ['web', 'press', 'slides', 'video', 'report', 'paper'] as const;
 ---
 
 <article data-tag={tag} class={`group relative border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
@@ -37,23 +48,196 @@ const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray
       {tag}
     </span>
   )}
-  {thumbnail && (
-    <div class="aspect-video bg-gray-100 overflow-hidden">
-      <img src={thumbnail} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-    </div>
-  )}
-  <div class="p-4">
-    {dateStr && <p class="text-xs text-gray-500 mb-1.5">{dateStr}</p>}
-    <h3 class="text-base font-medium leading-snug text-gray-900 mb-2 group-hover:text-sky-800 transition-colors">{title}</h3>
-    <p class="text-sm text-gray-600 leading-relaxed">{event}</p>
-    {links && (
-      <div class="flex gap-3 mt-3 text-xs">
-        {links.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
-        {links.press && <a href={links.press} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Press</a>}
-        {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
-        {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
-        {links.report && <a href={links.report} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Report</a>}
+
+  {/* Click trigger: thumbnail + summary text. Renders as a transparent button so
+      keyboard focus + Enter/Space open the dialog the way mouse click does. */}
+  <button type="button" class="card-trigger w-full text-left bg-transparent border-0 p-0 cursor-pointer">
+    {thumbnail && (
+      <div class="aspect-video bg-gray-100 overflow-hidden">
+        <img src={thumbnail} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
       </div>
     )}
-  </div>
+    <div class="px-4 pt-4 pb-2">
+      {dateStr && <p class="text-xs text-gray-500 mb-1.5">{dateStr}</p>}
+      <h3 class="text-base font-medium leading-snug text-gray-900 mb-2 group-hover:text-sky-800 transition-colors">{title}</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">{event}</p>
+    </div>
+  </button>
+
+  {links && (
+    <div class="px-4 pb-4 flex gap-3 text-xs">
+      {links.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
+      {links.press && <a href={links.press} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Press</a>}
+      {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
+      {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
+      {links.report && <a href={links.report} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Report</a>}
+    </div>
+  )}
+
+  <dialog class="card-dialog">
+    <button type="button" class="dialog-close" aria-label="閉じる">×</button>
+    {thumbnail && (
+      <div class="dialog-thumb">
+        <img src={thumbnail} alt="" />
+      </div>
+    )}
+    <div class="dialog-body">
+      {tag && <span class={`dialog-tag ${badgeColor}`}>{tag}</span>}
+      {dateStr && <p class="dialog-date">{dateStr}</p>}
+      <h2 class="dialog-title">{title}</h2>
+      <p class="dialog-subtitle">{event}</p>
+      {links && (
+        <ul class="dialog-links">
+          {linkOrder.map((k) => links[k] && (
+            <li>
+              <a href={links[k]} target="_blank" rel="noopener">
+                <span class="dialog-link-label">{linkLabels[k] ?? k}</span>
+                <span class="dialog-link-arrow">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </dialog>
 </article>
+
+<style>
+  /* The trigger button should look identical to the card body. */
+  .card-trigger:focus-visible {
+    outline: 2px solid rgb(56 189 248); /* sky-400 */
+    outline-offset: -2px;
+  }
+
+  .card-dialog {
+    max-width: min(560px, 92vw);
+    width: 100%;
+    border: 0;
+    border-radius: 0.75rem;
+    padding: 0;
+    background: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  .card-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.55); /* slate-900/55 */
+    backdrop-filter: blur(2px);
+  }
+  .card-dialog[open] {
+    animation: dialog-in 180ms ease-out;
+  }
+  @keyframes dialog-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dialog-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 2;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.9);
+    color: rgb(55 65 81); /* gray-700 */
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  .dialog-close:hover { background: white; color: rgb(17 24 39); }
+
+  .dialog-thumb {
+    background: rgb(243 244 246);
+  }
+  .dialog-thumb img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+  .dialog-body { padding: 1.5rem 1.75rem 1.75rem; }
+  .dialog-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid;
+    margin-bottom: 0.75rem;
+  }
+  .dialog-date {
+    font-size: 0.8125rem;
+    color: rgb(107 114 128);
+    margin: 0 0 0.25rem;
+  }
+  .dialog-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgb(17 24 39);
+    margin: 0 0 0.75rem;
+  }
+  .dialog-subtitle {
+    font-size: 0.9375rem;
+    color: rgb(75 85 99);
+    line-height: 1.65;
+    margin: 0 0 1.25rem;
+  }
+  .dialog-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgb(229 231 235);
+  }
+  .dialog-links li { border-bottom: 1px solid rgb(229 231 235); }
+  .dialog-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0.25rem;
+    color: rgb(29 78 216); /* blue-700 */
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transition: padding 150ms ease;
+  }
+  .dialog-links a:hover {
+    color: rgb(30 64 175); /* blue-800 */
+    padding-left: 0.5rem;
+  }
+  .dialog-links a:hover .dialog-link-arrow { transform: translateX(2px); }
+  .dialog-link-arrow {
+    color: rgb(156 163 175);
+    transition: transform 150ms ease;
+  }
+</style>
+
+<script>
+  // Open the per-card dialog when its trigger button is clicked.
+  // Close on backdrop click and on the in-dialog × button. ESC closes
+  // natively because that's how <dialog> works.
+  for (const trigger of document.querySelectorAll<HTMLButtonElement>('.card-trigger')) {
+    const dialog = trigger.closest('article')?.querySelector<HTMLDialogElement>('dialog.card-dialog');
+    if (!dialog) continue;
+    trigger.addEventListener('click', () => {
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+    });
+  }
+
+  for (const dialog of document.querySelectorAll<HTMLDialogElement>('dialog.card-dialog')) {
+    // Close when backdrop (the dialog element itself) is clicked, but not when
+    // the inner content is clicked.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog
+      .querySelector<HTMLButtonElement>('.dialog-close')
+      ?.addEventListener('click', () => dialog.close());
+  }
+</script>
