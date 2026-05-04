@@ -11,7 +11,4 @@ links:
   report:
     - "https://tokyochips.tokyo/2024/03/24746/"
     - "https://logmi.jp/main/technology/330649"
-    - "https://logmi.jp/main/technology/330666"
-    - "https://logmi.jp/main/technology/330667"
-    - "https://logmi.jp/main/technology/330670"
 ---
