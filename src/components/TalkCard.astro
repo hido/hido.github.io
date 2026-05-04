@@ -10,8 +10,9 @@ interface Props {
     slides?: string;
     web?: string;
     video?: string;
-    report?: string;
+    report?: string | string[];
     press?: string;
+    paper?: string;
   };
   thumbnail?: string;
   compact?: boolean;
@@ -24,6 +25,13 @@ const dateStr = date
   : '';
 
 const badgeColor = tag ? TAG_COLORS[tag] ?? TAG_COLOR_FALLBACK : '';
+
+// Reports may be a single URL or an array. Normalize once so the
+// markup below doesn't have to branch in two places.
+const reportList: string[] = links?.report
+  ? Array.isArray(links.report) ? links.report : [links.report]
+  : [];
+const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
 ---
 
 <article data-tag={tag} class={`group relative border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
@@ -54,7 +62,11 @@ const badgeColor = tag ? TAG_COLORS[tag] ?? TAG_COLOR_FALLBACK : '';
       {links.press && <a href={links.press} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Press</a>}
       {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
       {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
-      {links.report && <a href={links.report} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Report</a>}
+      {reportList.length > 0 && (
+        <a href={reportList[0]} target="_blank" rel="noopener" class="text-blue-700 hover:underline">
+          Report{reportList.length > 1 ? ` ×${reportList.length}` : ''}
+        </a>
+      )}
     </div>
   )}
 
@@ -72,14 +84,28 @@ const badgeColor = tag ? TAG_COLORS[tag] ?? TAG_COLOR_FALLBACK : '';
       <p class="dialog-subtitle">{event}</p>
       {links && (
         <ul class="dialog-links">
-          {LINK_ORDER.map((k) => links[k] && (
-            <li>
-              <a href={links[k]} target="_blank" rel="noopener">
-                <span class="dialog-link-label">{LINK_LABELS[k] ?? k}</span>
-                <span class="dialog-link-arrow">→</span>
-              </a>
-            </li>
-          ))}
+          {LINK_ORDER.map((k) => {
+            if (k === 'report') {
+              return reportList.map((url, i) => (
+                <li>
+                  <a href={url} target="_blank" rel="noopener">
+                    <span class="dialog-link-label">
+                      {LINK_LABELS.report}{reportList.length > 1 ? ` ${CIRCLED[i] ?? i + 1}` : ''}
+                    </span>
+                    <span class="dialog-link-arrow">→</span>
+                  </a>
+                </li>
+              ));
+            }
+            return links[k] && (
+              <li>
+                <a href={links[k] as string} target="_blank" rel="noopener">
+                  <span class="dialog-link-label">{LINK_LABELS[k] ?? k}</span>
+                  <span class="dialog-link-arrow">→</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

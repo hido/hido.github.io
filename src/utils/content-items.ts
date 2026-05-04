@@ -10,8 +10,9 @@ export type ContentItem = {
     slides?: string;
     web?: string;
     video?: string;
-    report?: string;
+    report?: string | string[];
     press?: string;
+    paper?: string;
   };
   thumbnail?: string;
 };

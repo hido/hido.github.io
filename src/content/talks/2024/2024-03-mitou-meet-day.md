@@ -8,5 +8,10 @@ thumbnail: /thumbnails/talk-2024-mitou-meet-day.jpg
 links:
   web: "https://www.ipa.go.jp/jinzai/mitou/event/mitoukaigi2024.html"
   video: "https://www.youtube.com/live/MJPg4eyicQY?t=13193"
-  report: "https://tokyochips.tokyo/2024/03/24746/"
+  report:
+    - "https://tokyochips.tokyo/2024/03/24746/"
+    - "https://logmi.jp/main/technology/330649"
+    - "https://logmi.jp/main/technology/330666"
+    - "https://logmi.jp/main/technology/330667"
+    - "https://logmi.jp/main/technology/330670"
 ---

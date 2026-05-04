@@ -2,12 +2,14 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 // Card-style links: every kind TalkCard renders. Used by talks and awards.
+// `report` accepts either a single URL or an array, so a panel can
+// list every transcript / writeup that was published about it.
 const cardLinkSchema = z
   .object({
     slides: z.string().url().optional(),
     web: z.string().url().optional(),
     video: z.string().url().optional(),
-    report: z.string().url().optional(),
+    report: z.union([z.string().url(), z.array(z.string().url())]).optional(),
     press: z.string().url().optional(),
     paper: z.string().url().optional(),
   })
