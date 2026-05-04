@@ -39,6 +39,9 @@ const talks = defineCollection({
     tag: z.string().default('講演'),
     links: cardLinkSchema,
     thumbnail: z.string().optional(),
+    // Display name of the thumbnail's copyright holder, e.g. "日経BP".
+    // Rendered as "© <copyright>" in the bottom-right of the card image.
+    copyright: z.string().optional(),
   }),
 });
 
@@ -65,6 +68,7 @@ const press = defineCollection({
     type: z.literal('press'),
     tag: z.string().default('メディア'),
     thumbnail: z.string().optional(),
+    copyright: z.string().optional(),
   }),
 });
 
@@ -78,6 +82,7 @@ const awards = defineCollection({
     tag: z.string().default('表彰'),
     links: cardLinkSchema,
     thumbnail: z.string().optional(),
+    copyright: z.string().optional(),
   }),
 });
 

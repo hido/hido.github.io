@@ -5,6 +5,7 @@ event: "uTIE Connect DAIKIN Day（東京大学）"
 type: talk
 tag: 講演
 thumbnail: /thumbnails/talk-2025-utie-daikin-day.png
+copyright: uTIE / 東京大学
 links:
   web: "https://note.com/utie_utokyo/n/n6f1bcd33e207"
 ---
