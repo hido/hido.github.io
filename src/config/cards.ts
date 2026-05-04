@@ -19,6 +19,22 @@ export const LINK_LABELS: Record<string, string> = {
   paper: '論文',
 };
 
+// Per-tag overrides — e.g. a メディア card's `web` URL is the article page,
+// not an event landing page, so the dialog label should reflect that.
+export const LINK_LABELS_BY_TAG: Record<string, Partial<Record<string, string>>> = {
+  'メディア': {
+    web: 'メディア掲載ページ',
+  },
+};
+
+export function linkLabel(kind: string, tag?: string): string {
+  return (
+    (tag && LINK_LABELS_BY_TAG[tag]?.[kind]) ??
+    LINK_LABELS[kind] ??
+    kind
+  );
+}
+
 export const LINK_ORDER = ['web', 'press', 'slides', 'video', 'report', 'paper'] as const;
 
 export type LinkKind = (typeof LINK_ORDER)[number];

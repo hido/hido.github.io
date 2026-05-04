@@ -1,5 +1,5 @@
 ---
-import { TAG_COLORS, TAG_COLOR_FALLBACK, LINK_LABELS, LINK_ORDER } from '../config/cards';
+import { TAG_COLORS, TAG_COLOR_FALLBACK, LINK_ORDER, linkLabel } from '../config/cards';
 
 interface Props {
   title: string;
@@ -90,7 +90,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
                 <li>
                   <a href={url} target="_blank" rel="noopener">
                     <span class="dialog-link-label">
-                      {LINK_LABELS.report}{reportList.length > 1 ? ` ${CIRCLED[i] ?? i + 1}` : ''}
+                      {linkLabel('report', tag)}{reportList.length > 1 ? ` ${CIRCLED[i] ?? i + 1}` : ''}
                     </span>
                     <span class="dialog-link-arrow">→</span>
                   </a>
@@ -100,7 +100,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
             return links[k] && (
               <li>
                 <a href={links[k] as string} target="_blank" rel="noopener">
-                  <span class="dialog-link-label">{LINK_LABELS[k] ?? k}</span>
+                  <span class="dialog-link-label">{linkLabel(k, tag)}</span>
                   <span class="dialog-link-arrow">→</span>
                 </a>
               </li>
