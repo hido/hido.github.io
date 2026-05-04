@@ -6,4 +6,5 @@ authors: "Hisashi Kashima, Shohei Hido, Yuta Tsuboi, Akira Tajima, Takeshi Ueno,
 type: publication
 links:
   paper: "https://hkashima.github.io/publication/IAMOT2010.pdf"
+thumbnail: "/thumbnails/pub-2009-kashima-predictive-patent-quality.png"
 ---

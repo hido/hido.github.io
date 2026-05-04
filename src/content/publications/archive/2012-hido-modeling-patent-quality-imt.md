@@ -6,4 +6,5 @@ authors: "Shohei Hido, Shoko Suzuki, Risa Nishiyama, Takashi Imamichi, Rikiya Ta
 type: publication
 links:
   paper: "https://www.jstage.jst.go.jp/article/imt/7/3/7_1180/_article"
+thumbnail: "/thumbnails/pub-2012-hido-modeling-patent-quality-imt.png"
 ---
