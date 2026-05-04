@@ -1,6 +1,6 @@
 ---
 title: "天才デジタルイノベーター集結 日本発グローバルAIの勝ち筋"
-date: 2025-09-18
+date: 2025-09-18T15:00:00+09:00
 event: "KIDOU Global Conference（コングレスクエア グラングリーン大阪）／ パネル：古橋貞之（Treasure Data）、梶田真実（SingularPerturbations）、ファシリ：野嶋紗己子（PIVOT）"
 type: talk
 tag: 講演

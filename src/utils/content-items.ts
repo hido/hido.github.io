@@ -56,10 +56,24 @@ export function mergeContentItems(
     })),
   ];
 
+  // Sort by JST calendar day descending (newest day first), then by exact
+  // time ascending within the same day. The within-day ascent matches how
+  // a CV reads: if two events happened on the same day, the earlier one
+  // is listed first.
+  const jstDay = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+  const dayKey = (d: Date | undefined): number =>
+    d ? Number(jstDay.format(d).replace(/-/g, '')) : -Infinity;
+
   items.sort((a, b) => {
-    const at = a.date ? a.date.getTime() : -Infinity;
-    const bt = b.date ? b.date.getTime() : -Infinity;
-    return bt - at;
+    const aDay = dayKey(a.date);
+    const bDay = dayKey(b.date);
+    if (aDay !== bDay) return bDay - aDay;
+    return (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0);
   });
 
   return items;

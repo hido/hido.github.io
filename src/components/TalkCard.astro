@@ -22,7 +22,12 @@ interface Props {
 const { title, date, event, tag, links, thumbnail, copyright, compact = false } = Astro.props;
 
 const dateStr = date
-  ? new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long' }).format(date)
+  ? new Intl.DateTimeFormat('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'Asia/Tokyo',
+    }).format(date)
   : '';
 
 const badgeColor = tag ? TAG_COLORS[tag] ?? TAG_COLOR_FALLBACK : '';
