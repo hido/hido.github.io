@@ -6,4 +6,5 @@ url: "https://toyokeizai.net/articles/-/860345"
 type: press
 tag: メディア
 thumbnail: /thumbnails/press-2025-toyokeizai.jpg
+copyright: 東洋経済新報社
 ---

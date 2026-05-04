@@ -15,6 +15,7 @@ export type ContentItem = {
     paper?: string;
   };
   thumbnail?: string;
+  copyright?: string;
 };
 
 export function mergeContentItems(
@@ -31,6 +32,7 @@ export function mergeContentItems(
       tag: t.data.tag,
       links: t.data.links,
       thumbnail: t.data.thumbnail,
+      copyright: t.data.copyright,
     })),
     ...press.map((p) => ({
       id: p.id,
@@ -40,6 +42,7 @@ export function mergeContentItems(
       tag: p.data.tag,
       links: { web: p.data.url },
       thumbnail: p.data.thumbnail,
+      copyright: p.data.copyright,
     })),
     ...awards.map((a) => ({
       id: a.id,
@@ -49,6 +52,7 @@ export function mergeContentItems(
       tag: a.data.tag,
       links: a.data.links,
       thumbnail: a.data.thumbnail,
+      copyright: a.data.copyright,
     })),
   ];
 

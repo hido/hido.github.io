@@ -6,4 +6,5 @@ url: "https://www.mitou.org/creators/hido_shohei.html"
 type: press
 tag: メディア
 thumbnail: /thumbnails/press-2024-mitou-creators.jpg
+copyright: 一般社団法人未踏
 ---
