@@ -3,66 +3,18 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TalkCard from '../../components/TalkCard.astro';
 import YearHeading from '../../components/YearHeading.astro';
+import { mergeContentItems, type ContentItem } from '../../utils/content-items';
 
-type Item = {
-  id: string;
-  title: string;
-  date?: Date;
-  subtitle: string;
-  tag: string;
-  links?: {
-    slides?: string;
-    web?: string;
-    video?: string;
-    report?: string;
-    press?: string;
-  };
-  thumbnail?: string;
-};
+const [talks, press, awards] = await Promise.all([
+  getCollection('talks'),
+  getCollection('press'),
+  getCollection('awards'),
+]);
 
-const talks = await getCollection('talks');
-const press = await getCollection('press');
-const awards = await getCollection('awards');
-
-const items: Item[] = [
-  ...talks.map((t) => ({
-    id: t.id,
-    title: t.data.title,
-    date: t.data.date,
-    subtitle: t.data.event,
-    tag: t.data.tag,
-    links: t.data.links,
-    thumbnail: t.data.thumbnail,
-  })),
-  ...press.map((p) => ({
-    id: p.id,
-    title: p.data.title,
-    date: p.data.date,
-    subtitle: p.data.outlet,
-    tag: p.data.tag,
-    links: { web: p.data.url },
-    thumbnail: p.data.thumbnail,
-  })),
-  ...awards.map((a) => ({
-    id: a.id,
-    title: a.data.title,
-    date: a.data.date,
-    subtitle: a.data.award,
-    tag: a.data.tag,
-    links: a.data.links,
-    thumbnail: a.data.thumbnail,
-  })),
-];
-
-// Sort by date desc; undated items go to the end.
-items.sort((a, b) => {
-  const at = a.date ? a.date.getTime() : -Infinity;
-  const bt = b.date ? b.date.getTime() : -Infinity;
-  return bt - at;
-});
+const items: ContentItem[] = mergeContentItems(talks, press, awards);
 
 // Group by year (>=2023) or 'archive' (older or undated).
-const grouped = new Map<string, Item[]>();
+const grouped = new Map<string, ContentItem[]>();
 for (const it of items) {
   const y = it.date?.getFullYear();
   const key = y && y >= 2023 ? String(y) : 'archive';

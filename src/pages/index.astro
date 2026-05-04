@@ -4,61 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TalkCard from '../components/TalkCard.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import { mergeContentItems } from '../utils/content-items';
 
-type RecentItem = {
-  id: string;
-  title: string;
-  date?: Date;
-  subtitle: string;
-  tag: string;
-  links?: {
-    slides?: string;
-    web?: string;
-    video?: string;
-    report?: string;
-    press?: string;
-  };
-  thumbnail?: string;
-};
-
-const allTalks = await getCollection('talks');
-const allPress = await getCollection('press');
-const allAwards = await getCollection('awards');
-const recentItems: RecentItem[] = [
-  ...allTalks.map((t) => ({
-    id: t.id,
-    title: t.data.title,
-    date: t.data.date,
-    subtitle: t.data.event,
-    tag: t.data.tag,
-    links: t.data.links,
-    thumbnail: t.data.thumbnail,
-  })),
-  ...allPress.map((p) => ({
-    id: p.id,
-    title: p.data.title,
-    date: p.data.date,
-    subtitle: p.data.outlet,
-    tag: p.data.tag,
-    links: { web: p.data.url },
-    thumbnail: p.data.thumbnail,
-  })),
-  ...allAwards.map((a) => ({
-    id: a.id,
-    title: a.data.title,
-    date: a.data.date,
-    subtitle: a.data.award,
-    tag: a.data.tag,
-    links: a.data.links,
-    thumbnail: a.data.thumbnail,
-  })),
-];
-recentItems.sort((a, b) => {
-  const at = a.date ? a.date.getTime() : -Infinity;
-  const bt = b.date ? b.date.getTime() : -Infinity;
-  return bt - at;
-});
-const recentTopItems = recentItems.slice(0, 8);
+const [allTalks, allPress, allAwards] = await Promise.all([
+  getCollection('talks'),
+  getCollection('press'),
+  getCollection('awards'),
+]);
+const recentTopItems = mergeContentItems(allTalks, allPress, allAwards).slice(0, 8);
 
 const allPublications = await getCollection('publications');
 const recentPublications = allPublications
