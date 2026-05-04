@@ -1,9 +1,12 @@
 ---
+import type { PublicationTag } from '../utils/publication-tag';
+
 interface Props {
   title: string;
   date: Date;
   venue: string;
   authors: string;
+  tag: PublicationTag;
   links?: {
     paper?: string;
     slides?: string;
@@ -11,11 +14,18 @@ interface Props {
   };
 }
 
-const { title, date, venue, authors, links } = Astro.props;
+const { title, date, venue, authors, tag, links } = Astro.props;
 const year = date.getFullYear();
+
+const tagColor = tag === 'パテント'
+  ? 'bg-violet-50 text-violet-800 border-violet-200'
+  : 'bg-emerald-50 text-emerald-800 border-emerald-200';
 ---
 
-<li class="py-3 border-b border-gray-100 last:border-0">
+<li class="relative py-3 border-b border-gray-100 last:border-0 pr-20" data-tag={tag}>
+  <span class={`absolute top-3 right-0 text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${tagColor}`}>
+    {tag}
+  </span>
   <p class="text-base text-gray-900 leading-snug">
     {links?.paper ? (
       <a href={links.paper} target="_blank" rel="noopener" class="hover:underline">{title}</a>

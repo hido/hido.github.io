@@ -4,18 +4,47 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
 import YearHeading from '../../components/YearHeading.astro';
 import { groupByYear } from '../../utils/group-by-year';
+import { publicationTag, type PublicationTag } from '../../utils/publication-tag';
 
 const all = await getCollection('publications');
 const sorted = all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const { grouped, orderedKeys } = groupByYear(sorted, (p) => p.data.date);
+
+type Tagged = (typeof sorted)[number] & { tag: PublicationTag };
+const tagged: Tagged[] = sorted.map((p) => ({ ...p, tag: publicationTag(p.data.venue) }));
+
+const { grouped, orderedKeys } = groupByYear(tagged, (p) => p.data.date);
+
+const allTags: PublicationTag[] = ['論文', 'パテント'];
+const tagCounts = Object.fromEntries(
+  allTags.map((t) => [t, tagged.filter((p) => p.tag === t).length]),
+) as Record<PublicationTag, number>;
 ---
 
 <BaseLayout title="論文 — 比戸 将平">
   <h1 class="text-2xl font-medium mb-2">論文</h1>
-  <p class="text-sm text-gray-500 mb-8">論文誌・国際会議発表・特許など。</p>
+  <p class="text-sm text-gray-500 mb-6">論文誌・国際会議発表・特許など。</p>
+
+  <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="種別でフィルタ" id="pub-filter">
+    {allTags.map((t) => (
+      <button
+        type="button"
+        data-filter={t}
+        class={`filter-btn ${t === '論文' ? 'is-active' : ''} px-3 py-1 text-xs rounded-full border border-gray-300 text-gray-700 hover:border-gray-500 transition-colors`}
+      >
+        {t} <span class="text-gray-400 ml-1">{tagCounts[t]}</span>
+      </button>
+    ))}
+    <button
+      type="button"
+      data-filter="all"
+      class="filter-btn px-3 py-1 text-xs rounded-full border border-gray-300 text-gray-700 hover:border-gray-500 transition-colors"
+    >
+      すべて <span class="text-gray-400 ml-1">{tagged.length}</span>
+    </button>
+  </div>
 
   {orderedKeys.map((key) => (
-    <section class="mb-10">
+    <section class="mb-10" data-year-section={key}>
       <YearHeading yearKey={key} count={grouped.get(key)!.length} />
       <ul>
         {grouped.get(key)!.map((p) => (
@@ -24,6 +53,7 @@ const { grouped, orderedKeys } = groupByYear(sorted, (p) => p.data.date);
             date={p.data.date}
             venue={p.data.venue}
             authors={p.data.authors}
+            tag={p.tag}
             links={p.data.links}
           />
         ))}
@@ -31,3 +61,53 @@ const { grouped, orderedKeys } = groupByYear(sorted, (p) => p.data.date);
     </section>
   ))}
 </BaseLayout>
+
+<style>
+  .filter-btn.is-active {
+    background-color: rgb(17 24 39); /* gray-900 */
+    color: white;
+    border-color: rgb(17 24 39);
+  }
+  .filter-btn.is-active span {
+    color: rgb(156 163 175);
+  }
+</style>
+
+<script>
+  // Filter publications by 論文 / パテント / すべて. Mirrors the
+  // /talks-and-media/ behavior: sync URL ?type=, hide non-matching
+  // <li>s, collapse year sections that end up empty.
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('#pub-filter .filter-btn'));
+  const items = Array.from(document.querySelectorAll<HTMLElement>('li[data-tag]'));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-year-section]'));
+
+  function applyFilter(filter: string) {
+    for (const item of items) {
+      const tag = item.dataset.tag ?? '';
+      const show = filter === 'all' || tag === filter;
+      item.style.display = show ? '' : 'none';
+    }
+    for (const section of sections) {
+      const visible = section.querySelectorAll('li[data-tag]:not([style*="display: none"])').length;
+      section.style.display = visible === 0 ? 'none' : '';
+    }
+    for (const btn of buttons) {
+      btn.classList.toggle('is-active', btn.dataset.filter === filter);
+    }
+    const url = new URL(window.location.href);
+    if (filter === '論文') url.searchParams.delete('type');
+    else url.searchParams.set('type', filter);
+    history.replaceState(null, '', url.toString());
+  }
+
+  for (const btn of buttons) {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter ?? '論文'));
+  }
+
+  const initial = new URL(window.location.href).searchParams.get('type') ?? '論文';
+  if (buttons.some((b) => b.dataset.filter === initial)) {
+    applyFilter(initial);
+  } else {
+    applyFilter('論文');
+  }
+</script>

@@ -5,6 +5,7 @@ import TalkCard from '../components/TalkCard.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { mergeContentItems } from '../utils/content-items';
+import { publicationTag } from '../utils/publication-tag';
 
 const [allTalks, allPress, allAwards] = await Promise.all([
   getCollection('talks'),
@@ -15,6 +16,7 @@ const recentTopItems = mergeContentItems(allTalks, allPress, allAwards).slice(0,
 
 const allPublications = await getCollection('publications');
 const recentPublications = allPublications
+  .filter((p) => publicationTag(p.data.venue) === '論文')
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 4);
 ---
@@ -88,6 +90,7 @@ const recentPublications = allPublications
           date={p.data.date}
           venue={p.data.venue}
           authors={p.data.authors}
+          tag="論文"
           links={p.data.links}
         />
       ))}
