@@ -6,41 +6,27 @@
 // Usage:
 //   node scripts/check-dead-links.mjs           # just report
 //   node scripts/check-dead-links.mjs --apply   # rewrite MDs
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { walkMarkdown, urlsFromFile } from './lib/content-urls.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const APPLY = process.argv.includes('--apply');
 
-function walk(dir, out = []) {
-  for (const name of readdirSync(dir)) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) walk(p, out);
-    else if (name.endsWith('.md')) out.push(p);
-  }
-  return out;
-}
+const mdFiles = walkMarkdown(join(root, 'src/content'));
 
-const URL_RE = /https?:\/\/[^\s"'<>)]+/g;
-const mdFiles = walk(join(root, 'src/content'));
+// Already-IA URLs aren't worth re-probing.
+const skipIA = (u) => u.includes('web.archive.org');
 
 // Build: file -> [urls]
 const fileUrls = new Map();
 const allUrls = new Set();
 for (const f of mdFiles) {
-  const text = readFileSync(f, 'utf8');
-  const urls = new Set();
-  for (const m of text.matchAll(URL_RE)) {
-    let u = m[0].replace(/[)"',]+$/, '');
-    if (u.includes('hido.github.io')) continue;
-    if (u.includes('localhost')) continue;
-    if (u.includes('web.archive.org')) continue; // already an IA URL
-    urls.add(u);
-    allUrls.add(u);
-  }
-  if (urls.size) fileUrls.set(f, [...urls]);
+  const urls = urlsFromFile(f, skipIA);
+  for (const u of urls) allUrls.add(u);
+  if (urls.length) fileUrls.set(f, urls);
 }
 
 // Load wayback map

@@ -9,9 +9,10 @@
 //   node scripts/wayback-submit.mjs --check   # exit 1 if any URL is missing
 //
 // Be patient — IA throttles aggressively. Keep delay between calls ≥ 4s.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { walkMarkdown, urlsFromFile } from './lib/content-urls.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -20,33 +21,8 @@ const args = new Set(process.argv.slice(2));
 const REFRESH = args.has('--refresh');
 const CHECK = args.has('--check');
 
-// Step 1: walk src/content for .md files
-function walk(dir, out = []) {
-  for (const name of readdirSync(dir)) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) walk(p, out);
-    else if (name.endsWith('.md')) out.push(p);
-  }
-  return out;
-}
-
-// Step 2: pull every external URL out of frontmatter values
-const URL_RE = /https?:\/\/[^\s"'<>)]+/g;
-function urlsFromFile(path) {
-  const text = readFileSync(path, 'utf8');
-  const out = new Set();
-  for (const m of text.matchAll(URL_RE)) {
-    let u = m[0].replace(/[)"',]+$/, '');
-    // Skip internal references and anything we know is not worth archiving
-    if (u.includes('hido.github.io')) continue;
-    if (u.includes('localhost')) continue;
-    out.add(u);
-  }
-  return [...out];
-}
-
 const urls = new Set();
-for (const f of walk(join(root, 'src/content'))) {
+for (const f of walkMarkdown(join(root, 'src/content'))) {
   for (const u of urlsFromFile(f)) urls.add(u);
 }
 const allUrls = [...urls].sort();
