@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TalkCard from '../../components/TalkCard.astro';
 import YearHeading from '../../components/YearHeading.astro';
-import { mergeContentItems, type ContentItem } from '../../utils/content-items';
+import { mergeContentItems } from '../../utils/content-items';
+import { groupByYear } from '../../utils/group-by-year';
 
 const [talks, press, awards] = await Promise.all([
   getCollection('talks'),
@@ -11,22 +12,8 @@ const [talks, press, awards] = await Promise.all([
   getCollection('awards'),
 ]);
 
-const items: ContentItem[] = mergeContentItems(talks, press, awards);
-
-// Group by year (>=2023) or 'archive' (older or undated).
-const grouped = new Map<string, ContentItem[]>();
-for (const it of items) {
-  const y = it.date?.getFullYear();
-  const key = y && y >= 2023 ? String(y) : 'archive';
-  if (!grouped.has(key)) grouped.set(key, []);
-  grouped.get(key)!.push(it);
-}
-
-const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
-  if (a === 'archive') return 1;
-  if (b === 'archive') return -1;
-  return Number(b) - Number(a);
-});
+const items = mergeContentItems(talks, press, awards);
+const { grouped, orderedKeys } = groupByYear(items, (it) => it.date);
 
 // Distinct tags for filter UI; keep stable order with talks first.
 const allTags = Array.from(new Set(items.map((it) => it.tag)));

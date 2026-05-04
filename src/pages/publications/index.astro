@@ -3,23 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
 import YearHeading from '../../components/YearHeading.astro';
+import { groupByYear } from '../../utils/group-by-year';
 
 const all = await getCollection('publications');
 const sorted = all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const grouped = new Map<string, typeof sorted>();
-for (const p of sorted) {
-  const y = p.data.date.getFullYear();
-  const key = y >= 2023 ? String(y) : 'archive';
-  if (!grouped.has(key)) grouped.set(key, []);
-  grouped.get(key)!.push(p);
-}
-
-const orderedKeys = Array.from(grouped.keys()).sort((a, b) => {
-  if (a === 'archive') return 1;
-  if (b === 'archive') return -1;
-  return Number(b) - Number(a);
-});
+const { grouped, orderedKeys } = groupByYear(sorted, (p) => p.data.date);
 ---
 
 <BaseLayout title="論文 — 比戸 将平">
