@@ -17,6 +17,7 @@ pnpm-debug.log*
 # Editors
 .vscode/
 .idea/
+.claude/
 
 # Legacy Jekyll
 _site
