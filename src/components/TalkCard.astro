@@ -1,4 +1,6 @@
 ---
+import { TAG_COLORS, TAG_COLOR_FALLBACK, LINK_LABELS, LINK_ORDER } from '../config/cards';
+
 interface Props {
   title: string;
   date?: Date;
@@ -21,25 +23,7 @@ const dateStr = date
   ? new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long' }).format(date)
   : '';
 
-// Color presets per known tag. Unknown tags fall back to neutral.
-// Add new entries as new tag values appear in content frontmatter.
-const tagColors: Record<string, string> = {
-  '講演': 'bg-sky-50 text-sky-800 border-sky-200',
-  'メディア': 'bg-amber-50 text-amber-800 border-amber-200',
-  '表彰': 'bg-rose-50 text-rose-800 border-rose-200',
-};
-const badgeColor = tag ? tagColors[tag] ?? 'bg-gray-50 text-gray-700 border-gray-200' : '';
-
-// Long labels in the dialog so links read like a menu rather than badges.
-const linkLabels: Record<string, string> = {
-  web: '公式サイト・イベントページ',
-  press: 'プレスリリース',
-  slides: 'スライド',
-  video: '動画',
-  report: 'レポート・記事',
-  paper: '論文',
-};
-const linkOrder = ['web', 'press', 'slides', 'video', 'report', 'paper'] as const;
+const badgeColor = tag ? TAG_COLORS[tag] ?? TAG_COLOR_FALLBACK : '';
 ---
 
 <article data-tag={tag} class={`group relative border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
@@ -88,10 +72,10 @@ const linkOrder = ['web', 'press', 'slides', 'video', 'report', 'paper'] as cons
       <p class="dialog-subtitle">{event}</p>
       {links && (
         <ul class="dialog-links">
-          {linkOrder.map((k) => links[k] && (
+          {LINK_ORDER.map((k) => links[k] && (
             <li>
               <a href={links[k]} target="_blank" rel="noopener">
-                <span class="dialog-link-label">{linkLabels[k] ?? k}</span>
+                <span class="dialog-link-label">{LINK_LABELS[k] ?? k}</span>
                 <span class="dialog-link-arrow">→</span>
               </a>
             </li>
