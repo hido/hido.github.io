@@ -5,6 +5,5 @@ event: "一般財団法人日本科学技術連盟・クオリティフォーラ
 type: talk
 tag: 講演
 links:
-  web: "https://www.juse.jp/quality_forum/2020/special_lecture/#hido"
   slides: "https://www.slideshare.net/pfi/2020-240123893"
 ---
