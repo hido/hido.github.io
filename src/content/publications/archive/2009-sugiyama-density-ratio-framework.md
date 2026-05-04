@@ -6,4 +6,5 @@ authors: "Masashi Sugiyama, Takafumi Kanamori, Taiji Suzuki, Shohei Hido, Jun Se
 type: publication
 links:
   paper: "https://www.jstage.jst.go.jp/article/ipsjtcva/1/0/1_0_183/_article"
+thumbnail: "/thumbnails/pub-2009-sugiyama-density-ratio-framework.png"
 ---

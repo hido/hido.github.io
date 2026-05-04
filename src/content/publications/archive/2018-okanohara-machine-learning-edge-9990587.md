@@ -6,4 +6,5 @@ authors: "Daisuke Okanohara, Justin B. Clayton, Toru Nishikawa, Shohei Hido, Nob
 type: publication
 links:
   paper: "https://patents.google.com/patent/US9990587"
+thumbnail: "/thumbnails/pub-2018-okanohara-machine-learning-edge-9990587.png"
 ---

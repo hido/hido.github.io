@@ -51,6 +51,7 @@ const publications = defineCollection({
     authors: z.string(),
     type: z.literal('publication'),
     links: publicationLinkSchema,
+    thumbnail: z.string().optional(),
   }),
 });
 

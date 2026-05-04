@@ -6,4 +6,5 @@ authors: "Yuta Tsuboi, Hisashi Kashima, Shohei Hido, Steffen Bickel, Masashi Sug
 type: publication
 links:
   paper: "https://www.jstage.jst.go.jp/article/ipsjjip/17/0/17_0_138/_article"
+thumbnail: "/thumbnails/pub-2009-tsuboi-density-ratio.png"
 ---

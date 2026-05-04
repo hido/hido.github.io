@@ -6,4 +6,5 @@ authors: "比戸将平"
 type: publication
 links:
   paper: "https://dbsj.org/wp-content/uploads/journal/vol4/no1/hido.pdf"
+thumbnail: "/thumbnails/pub-2006-hido-right-and-left-tree-join.png"
 ---

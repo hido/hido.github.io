@@ -6,4 +6,5 @@ authors: "Shohei Hido, Hisashi Kashima"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US9122771"
+thumbnail: "/thumbnails/pub-2015-hido-graph-similarity.png"
 ---

@@ -6,4 +6,5 @@ authors: "Karim Hamzaoui, Shohei Hido, Shoko Suzuki"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US20120296606A1"
+thumbnail: "/thumbnails/pub-2012-hamzaoui-interpolation-sensor-13-531-570.png"
 ---

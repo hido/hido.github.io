@@ -6,4 +6,5 @@ authors: "Shohei Hido, Yuta Tsuboi, Hisashi Kashima, Masashi Sugiyama, Takafumi 
 type: publication
 links:
   paper: "http://www.ms.k.u-tokyo.ac.jp/sugi/2008/ICDM2008.pdf"
+thumbnail: "/thumbnails/pub-2008-hido-inlier-based-outlier.png"
 ---

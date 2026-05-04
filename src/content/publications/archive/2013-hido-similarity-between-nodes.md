@@ -6,4 +6,5 @@ authors: "Shohei Hido"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US8538169"
+thumbnail: "/thumbnails/pub-2013-hido-similarity-between-nodes.png"
 ---

@@ -6,4 +6,5 @@ authors: "Justin B. Clayton, Daisuke Okanohara, Shohei Hido"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US10410113"
+thumbnail: "/thumbnails/pub-2019-clayton-time-series-sensor-fusion.png"
 ---

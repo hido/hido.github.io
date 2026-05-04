@@ -6,4 +6,5 @@ authors: "Takafumi Kanamori, Shohei Hido, Masashi Sugiyama"
 type: publication
 links:
   paper: "https://proceedings.neurips.cc/paper/2008/file/1385974ed5904a438616ff7bdb3f7439-Paper.pdf"
+thumbnail: "/thumbnails/pub-2008-kanamori-efficient-density-ratio.png"
 ---

@@ -6,4 +6,5 @@ authors: "Takafumi Kanamori, Shohei Hido, Masashi Sugiyama"
 type: publication
 links:
   paper: "https://www.jmlr.org/papers/v10/kanamori09a.html"
+thumbnail: "/thumbnails/pub-2009-kanamori-least-squares.png"
 ---

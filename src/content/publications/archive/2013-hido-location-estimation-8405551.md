@@ -6,4 +6,5 @@ authors: "Shohei Hido, Tsuyoshi Ide, Hisashi Kashima, Shoko Suzuki, Akira Tajima
 type: publication
 links:
   paper: "https://patents.google.com/patent/US8405551"
+thumbnail: "/thumbnails/pub-2013-hido-location-estimation-8405551.png"
 ---

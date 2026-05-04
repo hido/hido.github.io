@@ -6,4 +6,5 @@ authors: "Takahiro Hamada, Yuminobu Igarashi, Shohei Hido"
 type: publication
 links:
   paper: "https://patents.google.com/patent/US10397260"
+thumbnail: "/thumbnails/pub-2019-hamada-network-system.png"
 ---
