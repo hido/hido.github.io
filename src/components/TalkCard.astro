@@ -5,6 +5,9 @@ interface Props {
   title: string;
   date?: Date;
   event: string;
+  // Long-form description shown only inside the popup dialog.
+  // The card stays tied to `event` so its height is predictable.
+  eventDetail?: string;
   tag?: string;
   links?: {
     slides?: string;
@@ -19,7 +22,8 @@ interface Props {
   compact?: boolean;
 }
 
-const { title, date, event, tag, links, thumbnail, copyright, compact = false } = Astro.props;
+const { title, date, event, eventDetail, tag, links, thumbnail, copyright, compact = false } = Astro.props;
+const dialogSubtitle = eventDetail ?? event;
 
 const dateStr = date
   ? new Intl.DateTimeFormat('ja-JP', {
@@ -63,7 +67,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     <div class="px-4 pt-4 pb-2">
       {dateStr && <p class="text-xs text-gray-500 mb-1.5">{dateStr}</p>}
       <h3 class="text-base font-medium leading-snug text-gray-900 mb-2 group-hover:text-sky-800 transition-colors">{title}</h3>
-      <p class="text-sm text-gray-600 leading-relaxed">{event}</p>
+      <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{event}</p>
     </div>
   </button>
 
@@ -95,7 +99,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
       {tag && <span class={`dialog-tag ${badgeColor}`}>{tag}</span>}
       {dateStr && <p class="dialog-date">{dateStr}</p>}
       <h2 class="dialog-title">{title}</h2>
-      <p class="dialog-subtitle">{event}</p>
+      <p class="dialog-subtitle">{dialogSubtitle}</p>
       {links && (
         <ul class="dialog-links">
           {LINK_ORDER.map((k) => {
@@ -228,6 +232,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     color: rgb(75 85 99);
     line-height: 1.65;
     margin: 0 0 1.25rem;
+    white-space: pre-line;
   }
   .dialog-links {
     list-style: none;

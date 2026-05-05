@@ -5,6 +5,7 @@ export type ContentItem = {
   title: string;
   date?: Date;
   subtitle: string;
+  subtitleDetail?: string;
   tag: string;
   links?: {
     slides?: string;
@@ -29,6 +30,7 @@ export function mergeContentItems(
       title: t.data.title,
       date: t.data.date,
       subtitle: t.data.event,
+      subtitleDetail: t.data.eventDetail,
       tag: t.data.tag,
       links: t.data.links,
       thumbnail: t.data.thumbnail,
@@ -49,6 +51,7 @@ export function mergeContentItems(
       title: a.data.title,
       date: a.data.date,
       subtitle: a.data.award,
+      subtitleDetail: a.data.awardDetail,
       tag: a.data.tag,
       links: a.data.links,
       thumbnail: a.data.thumbnail,

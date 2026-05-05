@@ -33,6 +33,10 @@ const talks = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     event: z.string(),
+    // Long-form description shown only inside the popup dialog. Use this
+    // to carry venue, panelist roster, sub-titles, online flag, etc. while
+    // the card stays compact.
+    eventDetail: z.string().optional(),
     type: z.literal('talk'),
     // Free-form label shown as a card badge. Open-ended so future categories
     // (基調講演, パネル, etc.) can be introduced without a schema change.
@@ -78,6 +82,7 @@ const awards = defineCollection({
     title: z.string(),       // award headline shown as the card title
     date: z.coerce.date(),
     award: z.string(),       // organizer + program name + sub-info, shown as subtitle
+    awardDetail: z.string().optional(),
     type: z.literal('award'),
     tag: z.string().default('表彰'),
     links: cardLinkSchema,
