@@ -35,10 +35,9 @@ function paperBadgeLabel(url: string): string {
 const hasAnyLink = !!(links?.paper || links?.web || links?.slides);
 const primaryLink = links?.paper ?? links?.web ?? links?.slides;
 
-// Filled solid button: dark background, white bold text. Stands out
-// against the light row so the link badges are easy to target.
+// Outlined-button styling shared by every link badge.
 const btnClass =
-  'inline-flex items-center px-2.5 py-1 text-xs font-bold tracking-wide rounded-md bg-gray-800 text-white hover:bg-gray-900 transition-colors';
+  'inline-flex items-center px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:border-gray-500 hover:text-gray-900 transition-colors';
 ---
 
 <li class="relative flex gap-4 py-3 border-b border-gray-100 last:border-0 pr-20" data-tag={tag}>
