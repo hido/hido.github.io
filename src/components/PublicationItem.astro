@@ -33,43 +33,48 @@ function paperBadgeLabel(url: string): string {
 }
 
 const hasAnyLink = !!(links?.paper || links?.web || links?.slides);
+const primaryLink = links?.paper ?? links?.web ?? links?.slides;
+
+// Outlined-button styling shared by every link badge.
+const btnClass =
+  'inline-flex items-center px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 hover:border-gray-500 hover:text-gray-900 transition-colors';
 ---
 
-<li class="py-3 border-b border-gray-100 last:border-0" data-tag={tag}>
-  <div class="flex gap-4 items-start">
-    <div class="flex-1 min-w-0">
-      <p class="text-base text-gray-900 leading-snug">{title}</p>
-      <p class="text-sm text-gray-600 mt-1">{authors}</p>
-      <p class="text-sm text-gray-500 mt-0.5">
-        <em class="not-italic">{venue}</em>, {year}
-      </p>
-      {hasAnyLink && (
-        <div class="flex gap-3 mt-1 text-xs">
-          {links?.paper && (
-            <a href={links.paper} target="_blank" rel="noopener" class="text-blue-700 hover:underline">
-              {paperBadgeLabel(links.paper)}
-            </a>
-          )}
-          {links?.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
-          {links?.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
-        </div>
-      )}
-    </div>
-    <div class="shrink-0 flex flex-col items-end gap-1.5 w-28">
-      <span class={`text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${tagColor}`}>
-        {tag}
-      </span>
-      {thumbnail && (
-        <a
-          href={links?.paper ?? links?.web}
-          target="_blank"
-          rel="noopener"
-          class="block w-full aspect-[16/9] bg-white border border-gray-200 rounded overflow-hidden"
-          aria-label="サムネイル"
-        >
-          <img src={thumbnail} alt="" class="w-full h-full object-contain" />
-        </a>
-      )}
-    </div>
+<li class="relative flex gap-4 py-3 border-b border-gray-100 last:border-0 pr-20" data-tag={tag}>
+  {thumbnail ? (
+    <a
+      href={primaryLink}
+      target="_blank"
+      rel="noopener"
+      class="shrink-0 self-stretch block w-40 bg-white border border-gray-200 rounded overflow-hidden"
+      aria-label="サムネイル"
+    >
+      <img src={thumbnail} alt="" class="w-full h-full object-contain" />
+    </a>
+  ) : (
+    <div class="shrink-0 self-stretch w-40 bg-gray-50 border border-dashed border-gray-200 rounded" aria-hidden="true"></div>
+  )}
+
+  <div class="flex-1 min-w-0">
+    <p class="text-base text-gray-900 leading-snug">{title}</p>
+    <p class="text-sm text-gray-600 mt-1">{authors}</p>
+    <p class="text-sm text-gray-500 mt-0.5">
+      <em class="not-italic">{venue}</em>, {year}
+    </p>
+    {hasAnyLink && (
+      <div class="flex flex-wrap gap-2 mt-2">
+        {links?.paper && (
+          <a href={links.paper} target="_blank" rel="noopener" class={btnClass}>
+            {paperBadgeLabel(links.paper)}
+          </a>
+        )}
+        {links?.web && <a href={links.web} target="_blank" rel="noopener" class={btnClass}>Web</a>}
+        {links?.slides && <a href={links.slides} target="_blank" rel="noopener" class={btnClass}>Slides</a>}
+      </div>
+    )}
   </div>
+
+  <span class={`absolute top-3 right-0 text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${tagColor}`}>
+    {tag}
+  </span>
 </li>
