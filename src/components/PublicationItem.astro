@@ -34,10 +34,6 @@ function paperBadgeLabel(url: string): string {
 
 const hasAnyLink = !!(links?.paper || links?.web || links?.slides);
 const primaryLink = links?.paper ?? links?.web ?? links?.slides;
-
-// Outlined-button styling shared by every link badge.
-const btnClass =
-  'inline-flex items-center px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-700 no-underline hover:no-underline hover:bg-gray-50 hover:border-gray-500 hover:text-gray-900 transition-colors';
 ---
 
 <li class="relative flex gap-4 py-3 border-b border-gray-100 last:border-0 pr-20" data-tag={tag}>
@@ -62,14 +58,14 @@ const btnClass =
       <em class="not-italic">{venue}</em>, {year}
     </p>
     {hasAnyLink && (
-      <div class="flex flex-wrap gap-2 mt-2">
+      <div class="flex flex-wrap gap-1.5 mt-2">
         {links?.paper && (
-          <a href={links.paper} target="_blank" rel="noopener" class={btnClass}>
+          <a href={links.paper} target="_blank" rel="noopener" class="pub-pill is-paper">
             {paperBadgeLabel(links.paper)}
           </a>
         )}
-        {links?.web && <a href={links.web} target="_blank" rel="noopener" class={btnClass}>Web</a>}
-        {links?.slides && <a href={links.slides} target="_blank" rel="noopener" class={btnClass}>Slides</a>}
+        {links?.web && <a href={links.web} target="_blank" rel="noopener" class="pub-pill">Web</a>}
+        {links?.slides && <a href={links.slides} target="_blank" rel="noopener" class="pub-pill">Slides</a>}
       </div>
     )}
   </div>
@@ -78,3 +74,34 @@ const btnClass =
     {tag}
   </span>
 </li>
+
+<style>
+  /* Pill micro-link for paper / web / slides links. is-paper applies to
+     PDF / arXiv / Google Patent style links (emerald family). */
+  .pub-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1d4ed8;
+    background: #eff6ff;
+    text-decoration: none;
+    padding: 3px 11px;
+    border-radius: 9999px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .pub-pill:hover {
+    background: #dbeafe;
+    color: #1e40af;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .pub-pill.is-paper {
+    color: #065f46;
+    background: #ecfdf5;
+  }
+  .pub-pill.is-paper:hover {
+    background: #d1fae5;
+    color: #064e3b;
+  }
+</style>

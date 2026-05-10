@@ -72,13 +72,13 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
   </button>
 
   {links && (
-    <div class="px-4 pb-4 flex gap-3 text-xs">
-      {links.web && <a href={links.web} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Web</a>}
-      {links.press && <a href={links.press} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Press</a>}
-      {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Slides</a>}
-      {links.video && <a href={links.video} target="_blank" rel="noopener" class="text-blue-700 hover:underline">Video</a>}
+    <div class="px-4 pb-4 flex flex-wrap gap-1.5">
+      {links.web && <a href={links.web} target="_blank" rel="noopener" class="card-pill">Web</a>}
+      {links.press && <a href={links.press} target="_blank" rel="noopener" class="card-pill is-press">Press</a>}
+      {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="card-pill">Slides</a>}
+      {links.video && <a href={links.video} target="_blank" rel="noopener" class="card-pill">Video</a>}
       {reportList.length > 0 && (
-        <a href={reportList[0]} target="_blank" rel="noopener" class="text-blue-700 hover:underline">
+        <a href={reportList[0]} target="_blank" rel="noopener" class="card-pill">
           Report{reportList.length > 1 ? ` ×${reportList.length}` : ''}
         </a>
       )}
@@ -135,6 +135,35 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
   .card-trigger:focus-visible {
     outline: 2px solid rgb(56 189 248); /* sky-400 */
     outline-offset: -2px;
+  }
+
+  /* Pill micro-link for the card footer. Soft colored bg, no underline.
+     Press uses amber to match the press tag color family. */
+  .card-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1d4ed8;
+    background: #eff6ff;
+    text-decoration: none;
+    padding: 3px 11px;
+    border-radius: 9999px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .card-pill:hover {
+    background: #dbeafe;
+    color: #1e40af;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .card-pill.is-press {
+    color: #92400e;
+    background: #fffbeb;
+  }
+  .card-pill.is-press:hover {
+    background: #fef3c7;
+    color: #78350f;
   }
 
   .card-dialog {

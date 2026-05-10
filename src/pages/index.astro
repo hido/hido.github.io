@@ -35,8 +35,8 @@ const recentPublications = allPublications
           <a href="https://www.daikin.co.jp/" target="_blank" rel="noopener">ダイキン工業株式会社</a> テクノロジー・イノベーションセンター 技師長（DX推進担当）
         </p>
         <SocialLinks class="mb-4" />
-        <p class="text-sm font-medium text-gray-900 leading-snug mb-5 border-l-4 border-sky-300 pl-3">
-          20年にわたって、先端AI技術の産業応用をリード。
+        <p class="hero-lead">
+          <span class="hero-lead-num">20年</span>にわたって、<em class="hero-lead-em">先端AI技術の産業応用</em>をリード。
         </p>
         <div class="space-y-3 text-sm leading-[1.85] text-gray-800">
           <p>
@@ -60,9 +60,15 @@ const recentPublications = allPublications
   </section>
 
   <section class="mb-16">
-    <div class="flex items-baseline justify-between mb-5">
-      <h2 class="text-xl font-medium">最近の活動</h2>
-      <a href="/talks-and-media/" class="text-sm">すべて見る →</a>
+    <div class="section-head">
+      <h2 class="section-title">最近の活動 <span class="section-en">Recent activity</span></h2>
+      <a class="section-cta" href="/talks-and-media/">
+        もっと見る
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="13 6 19 12 13 18"></polyline>
+        </svg>
+      </a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {recentTopItems.map((it) => (
@@ -81,9 +87,15 @@ const recentPublications = allPublications
   </section>
 
   <section class="mb-16">
-    <div class="flex items-baseline justify-between mb-5">
-      <h2 class="text-xl font-medium">最近の論文</h2>
-      <a href="/publications/" class="text-sm">すべて見る →</a>
+    <div class="section-head">
+      <h2 class="section-title">最近の論文 <span class="section-en">Publications</span></h2>
+      <a class="section-cta" href="/publications/">
+        もっと見る
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="13 6 19 12 13 18"></polyline>
+        </svg>
+      </a>
     </div>
     <ul class="border-t border-gray-100">
       {recentPublications.map((p) => (
@@ -100,3 +112,105 @@ const recentPublications = allPublications
     </ul>
   </section>
 </BaseLayout>
+
+<style>
+  /* Hero lead — editorial pull-quote with gradient bar + gradient-text accent. */
+  .hero-lead {
+    position: relative;
+    max-width: 560px;
+    margin: 0 0 1.25rem;
+    padding: 12px 18px 12px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    color: #0f172a;
+    background: linear-gradient(180deg, #f0f9ff 0%, #fafaf9 100%);
+    border-radius: 4px 10px 10px 4px;
+    overflow: hidden;
+  }
+  .hero-lead::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #0ea5e9 0%, #1e3a8a 100%);
+    border-radius: 4px;
+  }
+  .hero-lead-num {
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0;
+  }
+  .hero-lead-em {
+    font-style: normal;
+    color: #1e3a8a;
+    font-weight: 600;
+  }
+
+  /* Section heading — JP title + uppercase EN sub + bottom rule + pill CTA. */
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #0f172a;
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .section-en {
+    font-family: "Inter", ui-sans-serif, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: #94a3b8;
+    text-transform: uppercase;
+    transform: translateY(-2px);
+  }
+  .section-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+    text-decoration: none;
+    padding: 7px 12px 7px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9999px;
+    background: #fff;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .section-cta:hover {
+    border-color: #0f172a;
+    background: #0f172a;
+    color: #fff;
+    text-decoration: none;
+  }
+  .section-cta svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .section-cta:hover svg {
+    transform: translateX(3px);
+  }
+</style>
