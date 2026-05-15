@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
+import PageHeading from '../../components/PageHeading.astro';
 import YearHeading from '../../components/YearHeading.astro';
 import { groupByYear } from '../../utils/group-by-year';
 import { publicationTag, type PublicationTag } from '../../utils/publication-tag';
@@ -21,8 +22,7 @@ const tagCounts = Object.fromEntries(
 ---
 
 <BaseLayout title="論文 — 比戸 将平">
-  <h1 class="text-2xl font-medium mb-2">論文</h1>
-  <p class="text-sm text-gray-500 mb-6">論文誌・国際会議発表・特許など。</p>
+  <PageHeading title="論文" en="Publications" description="論文誌・国際会議発表・特許など。" />
 
   <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="種別でフィルタ" id="pub-filter">
     {allTags.map((t) => (

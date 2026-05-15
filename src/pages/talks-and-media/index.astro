@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TalkCard from '../../components/TalkCard.astro';
+import PageHeading from '../../components/PageHeading.astro';
 import YearHeading from '../../components/YearHeading.astro';
 import { mergeContentItems } from '../../utils/content-items';
 import { groupByYear } from '../../utils/group-by-year';
@@ -20,8 +21,7 @@ const allTags = Array.from(new Set(items.map((it) => it.tag)));
 ---
 
 <BaseLayout title="講演・メディア掲載 — 比戸 将平">
-  <h1 class="text-2xl font-medium mb-2">講演・メディア掲載</h1>
-  <p class="text-sm text-gray-500 mb-6">登壇イベントと、新聞・専門メディアによる記事・インタビュー。</p>
+  <PageHeading title="講演・メディア掲載" en="Talks & Media" description="登壇イベントと、新聞・専門メディアによる記事・インタビュー。" />
 
   <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="タグでフィルタ" id="tag-filter">
     <button

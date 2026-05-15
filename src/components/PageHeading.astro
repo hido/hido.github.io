@@ -1,0 +1,51 @@
+---
+interface Props {
+  title: string;
+  en: string;
+  description?: string;
+}
+
+const { title, en, description } = Astro.props;
+---
+
+<div class="page-heading">
+  <h1 class="page-title">
+    {title} <span class="page-en">{en}</span>
+  </h1>
+  {description && <p class="page-desc">{description}</p>}
+</div>
+
+<style>
+  /* Page-level heading: JP title + uppercase EN sub + bottom rule.
+     Companion to the section-head pattern used on the home page. */
+  .page-heading {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 32px;
+  }
+  .page-title {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #0f172a;
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .page-en {
+    font-family: "Inter", ui-sans-serif, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: #94a3b8;
+    text-transform: uppercase;
+    transform: translateY(-2px);
+  }
+  .page-desc {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 8px 0 0;
+  }
+</style>

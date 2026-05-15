@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeading from '../../components/PageHeading.astro';
 
 // Edit this list to add note / X (Twitter) / Medium articles, etc.
 const links: { title: string; url: string; source: string; date?: string }[] = [
@@ -13,10 +14,11 @@ const links: { title: string; url: string; source: string; date?: string }[] = [
 ---
 
 <BaseLayout title="Blog — 比戸 将平">
-  <h1 class="text-2xl font-medium mb-2">Blog</h1>
-  <p class="text-sm text-gray-500 mb-8">
-    note や X（Twitter）など外部メディアに掲載された記事へのリンクをまとめています。
-  </p>
+  <PageHeading
+    title="Blog"
+    en="Notes & posts"
+    description="note や X（Twitter）など外部メディアに掲載された記事へのリンクをまとめています。"
+  />
 
   <div class="flex gap-4 mb-8">
     <a href="https://note.com/" target="_blank" rel="noopener" class="text-sm border border-gray-300 rounded px-3 py-1.5 hover:border-gray-500">
