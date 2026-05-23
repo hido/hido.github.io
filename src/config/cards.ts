@@ -5,6 +5,7 @@ export const TAG_COLORS: Record<string, string> = {
   '講演': 'bg-sky-50 text-sky-800 border-sky-200',
   'メディア': 'bg-amber-50 text-amber-800 border-amber-200',
   '表彰': 'bg-rose-50 text-rose-800 border-rose-200',
+  '予定': 'bg-indigo-50 text-indigo-800 border-indigo-200',
 };
 
 export const TAG_COLOR_FALLBACK = 'bg-gray-50 text-gray-700 border-gray-200';

@@ -9,6 +9,8 @@ interface Props {
   // The card stays tied to `event` so its height is predictable.
   eventDetail?: string;
   tag?: string;
+  // When true, render an extra "予定" badge so upcoming items stand out.
+  isUpcoming?: boolean;
   links?: {
     slides?: string;
     web?: string;
@@ -22,8 +24,9 @@ interface Props {
   compact?: boolean;
 }
 
-const { title, date, event, eventDetail, tag, links, thumbnail, copyright, compact = false } = Astro.props;
+const { title, date, event, eventDetail, tag, isUpcoming = false, links, thumbnail, copyright, compact = false } = Astro.props;
 const dialogSubtitle = eventDetail ?? event;
+const upcomingColor = TAG_COLORS['予定'] ?? TAG_COLOR_FALLBACK;
 
 const dateStr = date
   ? new Intl.DateTimeFormat('ja-JP', {
@@ -44,12 +47,19 @@ const reportList: string[] = links?.report
 const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
 ---
 
-<article data-tag={tag} class={`group relative border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
-  {tag && (
-    <span class={`absolute top-2 right-2 z-10 inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${badgeColor}`}>
-      {tag}
-    </span>
-  )}
+<article data-tag={tag} data-upcoming={isUpcoming ? 'true' : undefined} class={`group relative border ${isUpcoming ? 'border-indigo-300' : 'border-gray-200'} rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
+  <div class="absolute top-2 right-2 z-10 flex flex-row-reverse gap-1">
+    {tag && (
+      <span class={`inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${badgeColor}`}>
+        {tag}
+      </span>
+    )}
+    {isUpcoming && (
+      <span class={`inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${upcomingColor}`}>
+        予定
+      </span>
+    )}
+  </div>
 
   {/* Click trigger: thumbnail + summary text. Renders as a transparent button so
       keyboard focus + Enter/Space open the dialog the way mouse click does. */}

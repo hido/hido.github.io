@@ -18,6 +18,9 @@ const { grouped, orderedKeys } = groupByYear(items, (it) => it.date);
 
 // Distinct tags for filter UI; keep stable order with talks first.
 const allTags = Array.from(new Set(items.map((it) => it.tag)));
+// Upcoming items get their own filter pill alongside the regular tags;
+// they're still tagged 講演 / メディア / 表彰 so this is a cross-cutting filter.
+const upcomingCount = items.filter((it) => it.isUpcoming).length;
 ---
 
 <BaseLayout title="講演・メディア掲載 — 比戸 将平">
@@ -40,6 +43,15 @@ const allTags = Array.from(new Set(items.map((it) => it.tag)));
         {t} <span class="text-gray-400 ml-1" data-count={t}>{items.filter((it) => it.tag === t).length}</span>
       </button>
     ))}
+    {upcomingCount > 0 && (
+      <button
+        type="button"
+        data-filter="upcoming"
+        class="filter-btn px-3 py-1 text-xs rounded-full border border-indigo-300 text-indigo-700 hover:border-indigo-500 transition-colors"
+      >
+        予定 <span class="text-indigo-300 ml-1" data-count="upcoming">{upcomingCount}</span>
+      </button>
+    )}
   </div>
 
   {orderedKeys.map((key) => (
@@ -53,6 +65,7 @@ const allTags = Array.from(new Set(items.map((it) => it.tag)));
             event={it.subtitle}
             eventDetail={it.subtitleDetail}
             tag={it.tag}
+            isUpcoming={it.isUpcoming}
             links={it.links}
             thumbnail={it.thumbnail}
             copyright={it.copyright}
@@ -86,7 +99,10 @@ const allTags = Array.from(new Set(items.map((it) => it.tag)));
   function applyFilter(filter: string) {
     for (const card of cards) {
       const tag = card.dataset.tag ?? '';
-      const show = filter === 'all' || tag === filter;
+      const upcoming = card.dataset.upcoming === 'true';
+      const show =
+        filter === 'all' ||
+        (filter === 'upcoming' ? upcoming : tag === filter);
       card.style.display = show ? '' : 'none';
     }
     for (const section of sections) {

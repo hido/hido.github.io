@@ -7,6 +7,9 @@ export type ContentItem = {
   subtitle: string;
   subtitleDetail?: string;
   tag: string;
+  // True when `date` is in the future at build time. Surfaced as an
+  // extra "予定" badge / filter so visitors can spot upcoming events.
+  isUpcoming?: boolean;
   links?: {
     slides?: string;
     web?: string;
@@ -24,6 +27,8 @@ export function mergeContentItems(
   press: CollectionEntry<'press'>[],
   awards: CollectionEntry<'awards'>[],
 ): ContentItem[] {
+  const now = Date.now();
+  const isUpcoming = (d?: Date) => (d ? d.getTime() > now : false);
   const items: ContentItem[] = [
     ...talks.map((t) => ({
       id: t.id,
@@ -32,6 +37,7 @@ export function mergeContentItems(
       subtitle: t.data.event,
       subtitleDetail: t.data.eventDetail,
       tag: t.data.tag,
+      isUpcoming: isUpcoming(t.data.date),
       links: t.data.links,
       thumbnail: t.data.thumbnail,
       copyright: t.data.copyright,
@@ -42,6 +48,7 @@ export function mergeContentItems(
       date: p.data.date,
       subtitle: p.data.outlet,
       tag: p.data.tag,
+      isUpcoming: isUpcoming(p.data.date),
       links: { web: p.data.url },
       thumbnail: p.data.thumbnail,
       copyright: p.data.copyright,
@@ -53,6 +60,7 @@ export function mergeContentItems(
       subtitle: a.data.award,
       subtitleDetail: a.data.awardDetail,
       tag: a.data.tag,
+      isUpcoming: isUpcoming(a.data.date),
       links: a.data.links,
       thumbnail: a.data.thumbnail,
       copyright: a.data.copyright,
