@@ -75,42 +75,12 @@ const tagCounts = Object.fromEntries(
 </style>
 
 <script>
-  // Filter publications by 論文 / パテント / すべて. Mirrors the
-  // /talks-and-media/ behavior: sync URL ?type=, hide non-matching
-  // <li>s, collapse year sections that end up empty.
-  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('#pub-filter .filter-btn'));
-  const items = Array.from(document.querySelectorAll<HTMLElement>('li[data-tag]'));
-  const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-year-section]'));
+  import { setupFilterUI } from '../../utils/filter-ui';
 
-  function applyFilter(filter: string) {
-    for (const item of items) {
-      const tag = item.dataset.tag ?? '';
-      const show = filter === 'all' || tag === filter;
-      item.style.display = show ? '' : 'none';
-    }
-    for (const section of sections) {
-      const visible = section.querySelectorAll('li[data-tag]:not([style*="display: none"])').length;
-      section.style.display = visible === 0 ? 'none' : '';
-      const counter = section.querySelector('[data-year-count]');
-      if (counter) counter.textContent = `${visible}件`;
-    }
-    for (const btn of buttons) {
-      btn.classList.toggle('is-active', btn.dataset.filter === filter);
-    }
-    const url = new URL(window.location.href);
-    if (filter === '論文') url.searchParams.delete('type');
-    else url.searchParams.set('type', filter);
-    history.replaceState(null, '', url.toString());
-  }
-
-  for (const btn of buttons) {
-    btn.addEventListener('click', () => applyFilter(btn.dataset.filter ?? '論文'));
-  }
-
-  const initial = new URL(window.location.href).searchParams.get('type') ?? '論文';
-  if (buttons.some((b) => b.dataset.filter === initial)) {
-    applyFilter(initial);
-  } else {
-    applyFilter('論文');
-  }
+  setupFilterUI({
+    filterRootSelector: '#pub-filter',
+    itemSelector: 'li[data-tag]',
+    paramName: 'type',
+    defaultFilter: '論文',
+  });
 </script>

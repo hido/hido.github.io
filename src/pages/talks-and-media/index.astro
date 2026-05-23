@@ -88,45 +88,19 @@ const upcomingCount = items.filter((it) => it.isUpcoming).length;
 </style>
 
 <script>
-  // Tag filter for /talks-and-media/.
-  // Reads ?tag= from URL on load, syncs button state, and toggles
-  // visibility on cards by their data-tag attribute. Sections with
-  // zero visible cards collapse so empty year headings don't dangle.
-  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('#tag-filter .filter-btn'));
-  const cards = Array.from(document.querySelectorAll<HTMLElement>('article[data-tag]'));
-  const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-year-section]'));
+  import { setupFilterUI } from '../../utils/filter-ui';
 
-  function applyFilter(filter: string) {
-    for (const card of cards) {
-      const tag = card.dataset.tag ?? '';
-      const upcoming = card.dataset.upcoming === 'true';
-      const show =
-        filter === 'all' ||
-        (filter === 'upcoming' ? upcoming : tag === filter);
-      card.style.display = show ? '' : 'none';
-    }
-    for (const section of sections) {
-      const visible = section.querySelectorAll('article[data-tag]:not([style*="display: none"])').length;
-      section.style.display = visible === 0 ? 'none' : '';
-      const counter = section.querySelector('[data-year-count]');
-      if (counter) counter.textContent = `${visible}件`;
-    }
-    for (const btn of buttons) {
-      btn.classList.toggle('is-active', btn.dataset.filter === filter);
-    }
-    const url = new URL(window.location.href);
-    if (filter === 'all') url.searchParams.delete('tag');
-    else url.searchParams.set('tag', filter);
-    history.replaceState(null, '', url.toString());
-  }
-
-  for (const btn of buttons) {
-    btn.addEventListener('click', () => applyFilter(btn.dataset.filter ?? 'all'));
-  }
-
-  // Initial state from URL ?tag=...
-  const initial = new URL(window.location.href).searchParams.get('tag') ?? 'all';
-  if (buttons.some((b) => b.dataset.filter === initial)) {
-    applyFilter(initial);
-  }
+  // "upcoming" is a virtual filter that crosses the regular 講演 / メディア /
+  // 表彰 tag axis, so we extend the default tag-equality match.
+  setupFilterUI({
+    filterRootSelector: '#tag-filter',
+    itemSelector: 'article[data-tag]',
+    paramName: 'tag',
+    defaultFilter: 'all',
+    match: (item, filter) => {
+      if (filter === 'all') return true;
+      if (filter === 'upcoming') return item.dataset.upcoming === 'true';
+      return (item.dataset.tag ?? '') === filter;
+    },
+  });
 </script>
