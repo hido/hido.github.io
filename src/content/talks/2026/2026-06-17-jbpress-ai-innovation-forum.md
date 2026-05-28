@@ -8,5 +8,6 @@ tag: 講演
 thumbnail: /thumbnails/talk-2026-jbpress-ai-innovation-forum.jpg
 copyright: JBpress
 links:
+  register: "https://entry.jbpress.ismedia.jp/public/application/add/8448"
   web: "https://jbpress.ismedia.jp/list/jir/forum/ai-innovation"
 ---

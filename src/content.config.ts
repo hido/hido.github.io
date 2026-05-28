@@ -6,6 +6,9 @@ import { glob } from 'astro/loaders';
 // list every transcript / writeup that was published about it.
 const cardLinkSchema = z
   .object({
+    // CTA for upcoming events. Rendered as a filled indigo pill on the
+    // card (only when isUpcoming) to signal "register here" prominence.
+    register: z.string().url().optional(),
     slides: z.string().url().optional(),
     web: z.string().url().optional(),
     video: z.string().url().optional(),

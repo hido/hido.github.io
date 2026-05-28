@@ -11,6 +11,7 @@ export type ContentItem = {
   // extra "予定" badge / filter so visitors can spot upcoming events.
   isUpcoming?: boolean;
   links?: {
+    register?: string;
     slides?: string;
     web?: string;
     video?: string;

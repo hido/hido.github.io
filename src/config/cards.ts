@@ -12,6 +12,7 @@ export const TAG_COLOR_FALLBACK = 'bg-gray-50 text-gray-700 border-gray-200';
 
 // Long labels used inside the popup dialog (where links read like a menu).
 export const LINK_LABELS: Record<string, string> = {
+  register: '申込ページ',
   web: '公式サイト・イベントページ',
   press: 'プレスリリース',
   slides: 'スライド',
@@ -36,6 +37,6 @@ export function linkLabel(kind: string, tag?: string): string {
   );
 }
 
-export const LINK_ORDER = ['web', 'press', 'slides', 'video', 'report', 'paper'] as const;
+export const LINK_ORDER = ['register', 'web', 'press', 'slides', 'video', 'report', 'paper'] as const;
 
 export type LinkKind = (typeof LINK_ORDER)[number];
