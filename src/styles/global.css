@@ -6,27 +6,114 @@
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/700.css";
 
-/* Dark theme: slate canvas + sky accent. Forced — no media-query branch.
-   Tokens map roughly to slate-100..slate-950 for surfaces and text. */
-@theme {
+/* Tailwind v4: make `dark:` utilities respond to <html data-theme="dark"> rather
+   than `prefers-color-scheme`, so the in-page toggle drives every dark: pair. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Light palette is the default — any element without [data-theme="dark"]
+   above it resolves to these values. Dark overrides come below. */
+:root {
+  --bg-canvas: #ffffff;
+  --bg-surface: #ffffff;        /* card / dialog background */
+  --bg-elevated: #f8fafc;       /* slightly lifted (thumb backdrop, dialog thumb) */
+  --bg-header: rgba(255, 255, 255, 0.9);
+
+  --ink: #0f172a;               /* slate-900 — primary text */
+  --ink-secondary: #334155;     /* slate-700 */
+  --ink-muted: #64748b;         /* slate-500 */
+  --ink-faint: #94a3b8;         /* slate-400 */
+
+  --border-soft: #e2e8f0;       /* slate-200 */
+  --border-strong: #cbd5e1;     /* slate-300 */
+
+  --accent: #1e3a8a;            /* navy */
+  --accent-hover: #1e40af;
+  --accent-text: #1d4ed8;       /* readable on light bg */
+  --accent-soft-bg: #eff6ff;    /* pill background */
+  --accent-soft-bg-hover: #dbeafe;
+
+  --press-text: #92400e;
+  --press-bg: #fffbeb;
+  --press-bg-hover: #fef3c7;
+  --press-text-hover: #78350f;
+
+  --paper-text: #065f46;
+  --paper-bg: #ecfdf5;
+  --paper-bg-hover: #d1fae5;
+  --paper-text-hover: #064e3b;
+
+  --selection-bg: rgba(30, 58, 138, 0.18);
+  --selection-fg: #0f172a;
+}
+
+[data-theme="dark"] {
+  --bg-canvas: #020617;          /* slate-950 */
+  --bg-surface: #0f172a;         /* slate-900 */
+  --bg-elevated: #1e293b;        /* slate-800 */
+  --bg-header: rgba(2, 6, 23, 0.9);
+
+  --ink: #e2e8f0;                /* slate-200 */
+  --ink-secondary: #cbd5e1;      /* slate-300 */
+  --ink-muted: #94a3b8;          /* slate-400 */
+  --ink-faint: #64748b;          /* slate-500 */
+
+  --border-soft: #1e293b;        /* slate-800 */
+  --border-strong: #334155;      /* slate-700 */
+
+  --accent: #38bdf8;             /* sky-400 */
+  --accent-hover: #7dd3fc;       /* sky-300 */
+  --accent-text: #7dd3fc;
+  --accent-soft-bg: rgba(56, 189, 248, 0.10);
+  --accent-soft-bg-hover: rgba(56, 189, 248, 0.18);
+
+  --press-text: #fcd34d;         /* amber-300 */
+  --press-bg: rgba(251, 191, 36, 0.10);
+  --press-bg-hover: rgba(251, 191, 36, 0.18);
+  --press-text-hover: #fde68a;   /* amber-200 */
+
+  --paper-text: #6ee7b7;         /* emerald-300 */
+  --paper-bg: rgba(16, 185, 129, 0.10);
+  --paper-bg-hover: rgba(16, 185, 129, 0.18);
+  --paper-text-hover: #a7f3d0;
+
+  --selection-bg: rgba(56, 189, 248, 0.35);
+  --selection-fg: #f1f5f9;
+}
+
+/* Expose tokens as Tailwind utilities via @theme inline so
+   `bg-canvas`, `text-ink`, `border-soft`, etc. become Tailwind classes
+   that automatically swap with the theme. */
+@theme inline {
   --font-sans: "Inter", "Noto Sans JP", system-ui, -apple-system, "Segoe UI",
     "Hiragino Sans", "Yu Gothic", sans-serif;
-  --color-ink: #e2e8f0;           /* slate-200 — primary text */
-  --color-ink-muted: #94a3b8;     /* slate-400 — secondary text */
-  --color-accent: #38bdf8;        /* sky-400 */
-  --color-accent-light: #7dd3fc;  /* sky-300 */
-  --color-surface: #0f172a;       /* slate-900 — card surface */
-  --color-border: #1e293b;        /* slate-800 */
+
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-border-soft: var(--border-soft);
+  --color-border-strong: var(--border-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
 }
 
 html {
   font-family: var(--font-sans);
-  color: var(--color-ink);
-  background: #020617; /* slate-950 — page canvas */
-  color-scheme: dark;
+  color: var(--ink);
+  background: var(--bg-canvas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
 }
+
+[data-theme="dark"] { color-scheme: dark; }
+[data-theme="light"] { color-scheme: light; }
 
 body {
   line-height: 1.8;
@@ -34,13 +121,13 @@ body {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--accent);
   text-decoration: none;
   transition: color 150ms ease;
 }
 
 a:hover {
-  color: var(--color-accent-light);
+  color: var(--accent-hover);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -51,6 +138,6 @@ h1, h2, h3, h4 {
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.35); /* sky-400/35 */
-  color: #f1f5f9; /* slate-100 */
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }

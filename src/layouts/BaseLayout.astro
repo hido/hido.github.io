@@ -73,6 +73,24 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://hido.github
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌅%3C/text%3E%3C/svg%3E" />
     <title>{title}</title>
 
+    <!-- Theme init: resolve saved preference or OS hint BEFORE first paint
+         so the page doesn't flash the opposite scheme. Runs synchronously
+         because it sits in <head> and writes data-theme on <html>. -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = saved === 'light' || saved === 'dark'
+            ? saved
+            : (prefersDark ? 'dark' : 'light');
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VFWBCZCM1D"></script>
     <script is:inline>
@@ -82,7 +100,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://hido.github
       gtag('config', 'G-VFWBCZCM1D');
     </script>
   </head>
-  <body class="text-slate-200 bg-slate-950">
+  <body class="text-ink bg-canvas">
     <SiteHeader />
     <main class={mainClass}>
       <slot />

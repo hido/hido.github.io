@@ -20,14 +20,14 @@ const { title, en, description } = Astro.props;
      Companion to the section-head pattern used on the home page. */
   .page-heading {
     padding-bottom: 16px;
-    border-bottom: 1px solid #1e293b; /* slate-800 */
+    border-bottom: 1px solid var(--border-soft);
     margin-bottom: 32px;
   }
   .page-title {
     font-size: 24px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    color: #f1f5f9; /* slate-100 */
+    color: var(--ink);
     margin: 0;
     display: inline-flex;
     align-items: baseline;
@@ -39,13 +39,13 @@ const { title, en, description } = Astro.props;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.16em;
-    color: #64748b; /* slate-500 */
+    color: var(--ink-faint);
     text-transform: uppercase;
     transform: translateY(-2px);
   }
   .page-desc {
     font-size: 14px;
-    color: #94a3b8; /* slate-400 */
+    color: var(--ink-muted);
     margin: 8px 0 0;
   }
 </style>

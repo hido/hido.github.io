@@ -16,30 +16,45 @@ function navLinkClass(href: string) {
   return [
     'no-underline hover:no-underline transition-colors',
     isActive(href)
-      ? 'text-slate-100 font-medium md:border-b-2 md:border-sky-400 md:pb-0.5'
-      : 'text-slate-400 hover:text-slate-100',
+      ? 'text-ink font-medium md:border-b-2 md:border-accent md:pb-0.5'
+      : 'text-ink-muted hover:text-ink',
   ].join(' ');
 }
 ---
 
-<header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-20">
+<header class="border-b border-border-soft backdrop-blur sticky top-0 z-20" style="background: var(--bg-header);">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-    <a href="/" class="font-medium text-lg tracking-wide text-slate-100 no-underline hover:no-underline shrink-0">
-      比戸 将平 <span class="text-slate-500 font-normal">— Shohei Hido</span>
+    <a href="/" class="font-medium text-lg tracking-wide text-ink no-underline hover:no-underline shrink-0">
+      比戸 将平 <span class="text-ink-faint font-normal">— Shohei Hido</span>
     </a>
 
     {/* Desktop nav */}
-    <nav class="hidden md:flex gap-5 text-sm">
+    <nav class="hidden md:flex gap-5 text-sm items-center">
       {navItems.map((item) => (
         <a href={item.href} class={navLinkClass(item.href)}>{item.label}</a>
       ))}
+      <button
+        type="button"
+        id="theme-toggle"
+        aria-label="テーマを切り替える"
+        title="テーマを切り替える"
+        class="theme-toggle"
+      >
+        <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
     </nav>
 
     {/* Mobile nav: hamburger via <details> — no JS, accessible, keyboard-friendly */}
     <details class="md:hidden relative site-nav-mobile">
       <summary
         aria-label="メニューを開く"
-        class="list-none cursor-pointer text-slate-300 hover:text-slate-100 p-1 -mr-1"
+        class="list-none cursor-pointer text-ink-secondary hover:text-ink p-1 -mr-1"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 block hamburger-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -51,19 +66,90 @@ function navLinkClass(href: string) {
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </summary>
-      <nav class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-lg shadow-md shadow-slate-950/50 py-2 flex flex-col text-sm">
+      <nav class="absolute right-0 mt-2 w-48 bg-surface border border-border-soft rounded-lg shadow-md py-2 flex flex-col text-sm">
         {navItems.map((item) => (
           <a href={item.href} class={`px-4 py-2 ${navLinkClass(item.href)}`}>{item.label}</a>
         ))}
+        <button
+          type="button"
+          id="theme-toggle-mobile"
+          aria-label="テーマを切り替える"
+          class="theme-toggle theme-toggle-mobile"
+        >
+          <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+          <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <span class="theme-toggle-label">テーマ切替</span>
+        </button>
       </nav>
     </details>
   </div>
 </header>
 
 <style>
-  /* Toggle hamburger ↔ close icons based on <details> open state */
   details.site-nav-mobile[open] .hamburger-open { display: none; }
   details.site-nav-mobile[open] .hamburger-close { display: block; }
-  /* Hide default disclosure marker */
   details.site-nav-mobile summary::-webkit-details-marker { display: none; }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--accent);
+    background: var(--accent-soft-bg);
+  }
+  .theme-icon { width: 16px; height: 16px; }
+  /* Show sun in dark mode (click → switch to light), moon in light mode. */
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
+  :where([data-theme="dark"]) .icon-sun { display: block; }
+  :where([data-theme="dark"]) .icon-moon { display: none; }
+
+  /* Mobile variant: full-width row inside the dropdown */
+  .theme-toggle-mobile {
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    gap: 8px;
+    border: 0;
+    border-top: 1px solid var(--border-soft);
+    border-radius: 0;
+    padding: 8px 16px;
+    margin-top: 4px;
+    color: var(--ink-secondary);
+  }
+  .theme-toggle-mobile:hover {
+    background: var(--accent-soft-bg);
+  }
+  .theme-toggle-label { font-size: 0.875rem; }
 </style>
+
+<script>
+  // Theme toggle: flip data-theme on <html> and persist to localStorage.
+  // Both desktop and mobile buttons share the same handler.
+  for (const id of ['theme-toggle', 'theme-toggle-mobile']) {
+    const btn = document.getElementById(id);
+    if (!btn) continue;
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) { /* ignore */ }
+    });
+  }
+</script>

@@ -27,18 +27,18 @@ const recentPublications = allPublications
       <img
         src="/images/prof_pic.jpg"
         alt="比戸 将平"
-        class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover border border-slate-700 shrink-0 mx-auto md:mx-0"
+        class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover border border-border-soft shrink-0 mx-auto md:mx-0"
       />
       <div class="flex-1 min-w-0">
-        <h1 class="text-2xl font-medium mb-2 text-slate-100">比戸 将平 <span class="text-slate-500 font-normal ml-2">Shohei Hido</span></h1>
-        <p class="text-base md:text-lg text-slate-300 mb-4">
+        <h1 class="text-2xl font-medium mb-2 text-ink">比戸 将平 <span class="text-ink-faint font-normal ml-2">Shohei Hido</span></h1>
+        <p class="text-base md:text-lg text-ink-secondary mb-4">
           <a href="https://www.daikin.co.jp/" target="_blank" rel="noopener">ダイキン工業株式会社</a> テクノロジー・イノベーションセンター 技師長（DX推進担当）
         </p>
         <SocialLinks class="mb-4" />
         <p class="hero-lead">
           <span class="hero-lead-num">20年</span>にわたって、<em class="hero-lead-em">先端AI技術の産業応用</em>をリード。
         </p>
-        <div class="space-y-3 text-sm leading-[1.85] text-slate-300">
+        <div class="space-y-3 text-sm leading-[1.85] text-ink-secondary">
           <p>
             現在、ダイキン工業株式会社 テクノロジー・イノベーションセンター（TIC）技師長として、生成AIをはじめとする先端AI技術の製造業応用、
             および全社的なデジタル変革・データ活用の推進、デジタル人材教育に従事。直近では設計開発生成AIと空調分野に特化したLLMの構築プロジェクトを牽引。
@@ -98,7 +98,7 @@ const recentPublications = allPublications
         </svg>
       </a>
     </div>
-    <ul class="border-t border-slate-800">
+    <ul class="border-t border-border-soft">
       {recentPublications.map((p) => (
         <PublicationItem
           title={p.data.title}
@@ -115,7 +115,8 @@ const recentPublications = allPublications
 </BaseLayout>
 
 <style>
-  /* Hero lead — editorial pull-quote with gradient bar + gradient-text accent. */
+  /* Hero lead — editorial pull-quote with gradient bar + gradient-text accent.
+     Uses CSS variables so light/dark themes both look correct. */
   .hero-lead {
     position: relative;
     max-width: 560px;
@@ -125,9 +126,9 @@ const recentPublications = allPublications
     font-weight: 500;
     line-height: 1.7;
     letter-spacing: 0.01em;
-    color: #e2e8f0;            /* slate-200 */
-    background: linear-gradient(180deg, rgba(56, 189, 248, 0.10) 0%, rgba(15, 23, 42, 0.6) 100%);
-    border: 1px solid #1e293b; /* slate-800 */
+    color: var(--ink);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
     border-left-width: 0;
     border-radius: 4px 10px 10px 4px;
     overflow: hidden;
@@ -139,12 +140,12 @@ const recentPublications = allPublications
     top: 0;
     bottom: 0;
     width: 4px;
-    background: linear-gradient(180deg, #38bdf8 0%, #1e3a8a 100%);
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-hover) 100%);
     border-radius: 4px;
   }
   .hero-lead-num {
     font-weight: 700;
-    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -152,7 +153,7 @@ const recentPublications = allPublications
   }
   .hero-lead-em {
     font-style: normal;
-    color: #7dd3fc;            /* sky-300 */
+    color: var(--accent);
     font-weight: 600;
   }
 
@@ -164,13 +165,13 @@ const recentPublications = allPublications
     gap: 16px;
     margin-bottom: 20px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #1e293b; /* slate-800 */
+    border-bottom: 1px solid var(--border-soft);
   }
   .section-title {
     font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    color: #f1f5f9;            /* slate-100 */
+    color: var(--ink);
     margin: 0;
     display: inline-flex;
     align-items: baseline;
@@ -182,7 +183,7 @@ const recentPublications = allPublications
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.16em;
-    color: #64748b;            /* slate-500 */
+    color: var(--ink-faint);
     text-transform: uppercase;
     transform: translateY(-2px);
   }
@@ -192,20 +193,20 @@ const recentPublications = allPublications
     gap: 8px;
     font-size: 13px;
     font-weight: 500;
-    color: #cbd5e1;            /* slate-300 */
+    color: var(--ink-secondary);
     text-decoration: none;
     padding: 7px 12px 7px 14px;
-    border: 1px solid #1e293b; /* slate-800 */
+    border: 1px solid var(--border-soft);
     border-radius: 9999px;
-    background: rgba(15, 23, 42, 0.6);
+    background: var(--bg-surface);
     transition: border-color 0.2s, background 0.2s, color 0.2s;
     flex-shrink: 0;
     white-space: nowrap;
   }
   .section-cta:hover {
-    border-color: #38bdf8;      /* sky-400 */
-    background: rgba(56, 189, 248, 0.10);
-    color: #f1f5f9;
+    border-color: var(--accent);
+    background: var(--accent-soft-bg);
+    color: var(--ink);
     text-decoration: none;
   }
   .section-cta svg {

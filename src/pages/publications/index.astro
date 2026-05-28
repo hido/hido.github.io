@@ -29,17 +29,17 @@ const tagCounts = Object.fromEntries(
       <button
         type="button"
         data-filter={t}
-        class={`filter-btn ${t === '論文' ? 'is-active' : ''} px-3 py-1 text-xs rounded-full border border-slate-700 text-slate-300 hover:border-slate-500 transition-colors`}
+        class={`filter-btn ${t === '論文' ? 'is-active' : ''} px-3 py-1 text-xs rounded-full border border-border-soft text-ink-secondary hover:border-border-strong transition-colors`}
       >
-        {t} <span class="text-slate-500 ml-1">{tagCounts[t]}</span>
+        {t} <span class="text-ink-faint ml-1">{tagCounts[t]}</span>
       </button>
     ))}
     <button
       type="button"
       data-filter="all"
-      class="filter-btn px-3 py-1 text-xs rounded-full border border-slate-700 text-slate-300 hover:border-slate-500 transition-colors"
+      class="filter-btn px-3 py-1 text-xs rounded-full border border-border-soft text-ink-secondary hover:border-border-strong transition-colors"
     >
-      すべて <span class="text-slate-500 ml-1">{tagged.length}</span>
+      すべて <span class="text-ink-faint ml-1">{tagged.length}</span>
     </button>
   </div>
 
@@ -65,12 +65,12 @@ const tagCounts = Object.fromEntries(
 
 <style>
   .filter-btn.is-active {
-    background-color: #38bdf8;  /* sky-400 */
-    color: #020617;             /* slate-950 */
-    border-color: #38bdf8;
+    background-color: var(--accent);
+    color: var(--bg-canvas);
+    border-color: var(--accent);
   }
   .filter-btn.is-active span {
-    color: rgba(2, 6, 23, 0.6);
+    color: color-mix(in oklab, var(--bg-canvas) 60%, transparent);
   }
 </style>
 
