@@ -30,26 +30,26 @@ const upcomingCount = items.filter((it) => it.isUpcoming).length;
     <button
       type="button"
       data-filter="all"
-      class="filter-btn is-active px-3 py-1 text-xs rounded-full border border-slate-700 text-slate-300 hover:border-slate-500 transition-colors"
+      class="filter-btn is-active px-3 py-1 text-xs rounded-full border border-border-soft text-ink-secondary hover:border-border-strong transition-colors"
     >
-      すべて <span class="text-slate-500 ml-1" data-count="all">{items.length}</span>
+      すべて <span class="text-ink-faint ml-1" data-count="all">{items.length}</span>
     </button>
     {allTags.map((t) => (
       <button
         type="button"
         data-filter={t}
-        class="filter-btn px-3 py-1 text-xs rounded-full border border-slate-700 text-slate-300 hover:border-slate-500 transition-colors"
+        class="filter-btn px-3 py-1 text-xs rounded-full border border-border-soft text-ink-secondary hover:border-border-strong transition-colors"
       >
-        {t} <span class="text-slate-500 ml-1" data-count={t}>{items.filter((it) => it.tag === t).length}</span>
+        {t} <span class="text-ink-faint ml-1" data-count={t}>{items.filter((it) => it.tag === t).length}</span>
       </button>
     ))}
     {upcomingCount > 0 && (
       <button
         type="button"
         data-filter="upcoming"
-        class="filter-btn px-3 py-1 text-xs rounded-full border border-indigo-500/60 text-indigo-300 hover:border-indigo-400 transition-colors"
+        class="filter-btn px-3 py-1 text-xs rounded-full border border-indigo-300 text-indigo-700 hover:border-indigo-500 dark:border-indigo-500/60 dark:text-indigo-300 dark:hover:border-indigo-400 transition-colors"
       >
-        予定 <span class="text-indigo-400/70 ml-1" data-count="upcoming">{upcomingCount}</span>
+        予定 <span class="text-indigo-300 dark:text-indigo-400/70 ml-1" data-count="upcoming">{upcomingCount}</span>
       </button>
     )}
   </div>
@@ -78,12 +78,12 @@ const upcomingCount = items.filter((it) => it.isUpcoming).length;
 
 <style>
   .filter-btn.is-active {
-    background-color: #38bdf8;  /* sky-400 */
-    color: #020617;             /* slate-950 */
-    border-color: #38bdf8;
+    background-color: var(--accent);
+    color: var(--bg-canvas);
+    border-color: var(--accent);
   }
   .filter-btn.is-active span[data-count] {
-    color: rgba(2, 6, 23, 0.6); /* slate-950 alpha */
+    color: color-mix(in oklab, var(--bg-canvas) 60%, transparent);
   }
 </style>
 
