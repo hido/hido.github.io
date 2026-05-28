@@ -48,7 +48,7 @@ const reportList: string[] = links?.report
 const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
 ---
 
-<article data-tag={tag} data-upcoming={isUpcoming ? 'true' : undefined} class={`group relative border ${isUpcoming ? 'border-indigo-300' : 'border-gray-200'} rounded-lg overflow-hidden bg-white hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
+<article data-tag={tag} data-upcoming={isUpcoming ? 'true' : undefined} class={`group relative border ${isUpcoming ? 'border-indigo-500/60' : 'border-slate-800'} rounded-lg overflow-hidden bg-slate-900 hover:border-slate-600 hover:shadow-md hover:shadow-slate-950/50 hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200 ${compact ? '' : ''}`}>
   <div class="absolute top-2 right-2 z-10 flex flex-row-reverse gap-1">
     {tag && (
       <span class={`inline-block text-[10px] tracking-wide font-medium px-2 py-0.5 rounded-full border ${badgeColor}`}>
@@ -66,19 +66,19 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
       keyboard focus + Enter/Space open the dialog the way mouse click does. */}
   <button type="button" class="card-trigger w-full text-left bg-transparent border-0 p-0 cursor-pointer">
     {thumbnail && (
-      <div class="relative aspect-video bg-gray-100 overflow-hidden">
+      <div class="relative aspect-video bg-slate-800 overflow-hidden">
         <img src={thumbnail} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         {copyright && (
-          <span class="absolute bottom-1 right-1 text-[9px] leading-none text-white/90 bg-black/50 px-1 py-0.5 rounded tracking-wide">
+          <span class="absolute bottom-1 right-1 text-[9px] leading-none text-white/90 bg-black/60 px-1 py-0.5 rounded tracking-wide">
             © {copyright}
           </span>
         )}
       </div>
     )}
     <div class="px-4 pt-4 pb-2">
-      {dateStr && <p class="text-xs text-gray-500 mb-1.5">{dateStr}</p>}
-      <h3 class="text-base font-medium leading-snug text-gray-900 mb-2 group-hover:text-sky-800 transition-colors">{title}</h3>
-      <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{event}</p>
+      {dateStr && <p class="text-xs text-slate-500 mb-1.5">{dateStr}</p>}
+      <h3 class="text-base font-medium leading-snug text-slate-100 mb-2 group-hover:text-sky-300 transition-colors">{title}</h3>
+      <p class="text-sm text-slate-400 leading-relaxed whitespace-pre-line">{event}</p>
     </div>
   </button>
 
@@ -158,26 +158,26 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     align-items: center;
     font-size: 12px;
     font-weight: 500;
-    color: #1d4ed8;
-    background: #eff6ff;
+    color: #7dd3fc;          /* sky-300 */
+    background: rgba(56, 189, 248, 0.10); /* sky-400/10 */
     text-decoration: none;
     padding: 3px 11px;
     border-radius: 9999px;
     transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
   }
   .card-pill:hover {
-    background: #dbeafe;
-    color: #1e40af;
+    background: rgba(56, 189, 248, 0.18);
+    color: #bae6fd;          /* sky-200 */
     text-decoration: none;
     transform: translateY(-1px);
   }
   .card-pill.is-press {
-    color: #92400e;
-    background: #fffbeb;
+    color: #fcd34d;          /* amber-300 */
+    background: rgba(251, 191, 36, 0.10);
   }
   .card-pill.is-press:hover {
-    background: #fef3c7;
-    color: #78350f;
+    background: rgba(251, 191, 36, 0.18);
+    color: #fde68a;          /* amber-200 */
   }
   /* Register: a filled indigo CTA pill paired with the 予定 badge.
      Sits in the same row but reads as the primary action. */
@@ -197,16 +197,17 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     width: 100%;
     max-height: 90vh;
     margin: auto;
-    border: 0;
+    border: 1px solid #1e293b; /* slate-800 */
     border-radius: 0.75rem;
     padding: 0;
-    background: white;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: #0f172a;       /* slate-900 */
+    color: #e2e8f0;            /* slate-200 */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     overflow: hidden;
   }
   .card-dialog::backdrop {
-    background: rgba(15, 23, 42, 0.55); /* slate-900/55 */
-    backdrop-filter: blur(2px);
+    background: rgba(2, 6, 23, 0.75); /* slate-950/75 */
+    backdrop-filter: blur(3px);
   }
   .card-dialog[open] {
     animation: dialog-in 180ms ease-out;
@@ -225,21 +226,21 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     height: 2rem;
     border-radius: 9999px;
     border: 0;
-    background: rgba(255, 255, 255, 0.9);
-    color: rgb(55 65 81); /* gray-700 */
+    background: rgba(15, 23, 42, 0.85); /* slate-900/85 */
+    color: #e2e8f0;                     /* slate-200 */
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4);
   }
-  .dialog-close:hover { background: white; color: rgb(17 24 39); }
+  .dialog-close:hover { background: rgb(15 23 42); color: #f8fafc; }
 
   .dialog-thumb {
     position: relative;
-    background: rgb(243 244 246);
+    background: #1e293b; /* slate-800 */
   }
   .dialog-thumb img {
     width: 100%;
@@ -272,19 +273,19 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
   }
   .dialog-date {
     font-size: 0.8125rem;
-    color: rgb(107 114 128);
+    color: #94a3b8; /* slate-400 */
     margin: 0 0 0.25rem;
   }
   .dialog-title {
     font-size: 1.375rem;
     font-weight: 600;
     line-height: 1.4;
-    color: rgb(17 24 39);
+    color: #f1f5f9; /* slate-100 */
     margin: 0 0 0.75rem;
   }
   .dialog-subtitle {
     font-size: 0.9375rem;
-    color: rgb(75 85 99);
+    color: #cbd5e1; /* slate-300 */
     line-height: 1.65;
     margin: 0 0 1.25rem;
     white-space: pre-line;
@@ -293,26 +294,26 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid rgb(229 231 235);
+    border-top: 1px solid #1e293b; /* slate-800 */
   }
-  .dialog-links li { border-bottom: 1px solid rgb(229 231 235); }
+  .dialog-links li { border-bottom: 1px solid #1e293b; }
   .dialog-links a {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem 0.25rem;
-    color: rgb(29 78 216); /* blue-700 */
+    color: #7dd3fc; /* sky-300 */
     font-size: 0.9375rem;
     text-decoration: none;
     transition: padding 150ms ease;
   }
   .dialog-links a:hover {
-    color: rgb(30 64 175); /* blue-800 */
+    color: #bae6fd; /* sky-200 */
     padding-left: 0.5rem;
   }
   .dialog-links a:hover .dialog-link-arrow { transform: translateX(2px); }
   .dialog-link-arrow {
-    color: rgb(156 163 175);
+    color: #475569; /* slate-600 */
     transition: transform 150ms ease;
   }
 </style>
