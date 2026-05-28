@@ -27,18 +27,18 @@ const recentPublications = allPublications
       <img
         src="/images/prof_pic.jpg"
         alt="比戸 将平"
-        class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover border border-gray-200 shrink-0 mx-auto md:mx-0"
+        class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover border border-slate-700 shrink-0 mx-auto md:mx-0"
       />
       <div class="flex-1 min-w-0">
-        <h1 class="text-2xl font-medium mb-2">比戸 将平 <span class="text-gray-500 font-normal ml-2">Shohei Hido</span></h1>
-        <p class="text-base md:text-lg text-gray-700 mb-4">
+        <h1 class="text-2xl font-medium mb-2 text-slate-100">比戸 将平 <span class="text-slate-500 font-normal ml-2">Shohei Hido</span></h1>
+        <p class="text-base md:text-lg text-slate-300 mb-4">
           <a href="https://www.daikin.co.jp/" target="_blank" rel="noopener">ダイキン工業株式会社</a> テクノロジー・イノベーションセンター 技師長（DX推進担当）
         </p>
         <SocialLinks class="mb-4" />
         <p class="hero-lead">
           <span class="hero-lead-num">20年</span>にわたって、<em class="hero-lead-em">先端AI技術の産業応用</em>をリード。
         </p>
-        <div class="space-y-3 text-sm leading-[1.85] text-gray-800">
+        <div class="space-y-3 text-sm leading-[1.85] text-slate-300">
           <p>
             現在、ダイキン工業株式会社 テクノロジー・イノベーションセンター（TIC）技師長として、生成AIをはじめとする先端AI技術の製造業応用、
             および全社的なデジタル変革・データ活用の推進、デジタル人材教育に従事。直近では設計開発生成AIと空調分野に特化したLLMの構築プロジェクトを牽引。
@@ -98,7 +98,7 @@ const recentPublications = allPublications
         </svg>
       </a>
     </div>
-    <ul class="border-t border-gray-100">
+    <ul class="border-t border-slate-800">
       {recentPublications.map((p) => (
         <PublicationItem
           title={p.data.title}
@@ -125,8 +125,10 @@ const recentPublications = allPublications
     font-weight: 500;
     line-height: 1.7;
     letter-spacing: 0.01em;
-    color: #0f172a;
-    background: linear-gradient(180deg, #f0f9ff 0%, #fafaf9 100%);
+    color: #e2e8f0;            /* slate-200 */
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.10) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid #1e293b; /* slate-800 */
+    border-left-width: 0;
     border-radius: 4px 10px 10px 4px;
     overflow: hidden;
   }
@@ -137,12 +139,12 @@ const recentPublications = allPublications
     top: 0;
     bottom: 0;
     width: 4px;
-    background: linear-gradient(180deg, #0ea5e9 0%, #1e3a8a 100%);
+    background: linear-gradient(180deg, #38bdf8 0%, #1e3a8a 100%);
     border-radius: 4px;
   }
   .hero-lead-num {
     font-weight: 700;
-    background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -150,7 +152,7 @@ const recentPublications = allPublications
   }
   .hero-lead-em {
     font-style: normal;
-    color: #1e3a8a;
+    color: #7dd3fc;            /* sky-300 */
     font-weight: 600;
   }
 
@@ -162,13 +164,13 @@ const recentPublications = allPublications
     gap: 16px;
     margin-bottom: 20px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #1e293b; /* slate-800 */
   }
   .section-title {
     font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    color: #0f172a;
+    color: #f1f5f9;            /* slate-100 */
     margin: 0;
     display: inline-flex;
     align-items: baseline;
@@ -180,7 +182,7 @@ const recentPublications = allPublications
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.16em;
-    color: #94a3b8;
+    color: #64748b;            /* slate-500 */
     text-transform: uppercase;
     transform: translateY(-2px);
   }
@@ -190,20 +192,20 @@ const recentPublications = allPublications
     gap: 8px;
     font-size: 13px;
     font-weight: 500;
-    color: #0f172a;
+    color: #cbd5e1;            /* slate-300 */
     text-decoration: none;
     padding: 7px 12px 7px 14px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #1e293b; /* slate-800 */
     border-radius: 9999px;
-    background: #fff;
+    background: rgba(15, 23, 42, 0.6);
     transition: border-color 0.2s, background 0.2s, color 0.2s;
     flex-shrink: 0;
     white-space: nowrap;
   }
   .section-cta:hover {
-    border-color: #0f172a;
-    background: #0f172a;
-    color: #fff;
+    border-color: #38bdf8;      /* sky-400 */
+    background: rgba(56, 189, 248, 0.10);
+    color: #f1f5f9;
     text-decoration: none;
   }
   .section-cta svg {

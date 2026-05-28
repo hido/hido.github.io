@@ -2,13 +2,13 @@
 // (e.g. '基調講演') or a new link kind (e.g. 'podcast') is a one-file change.
 
 export const TAG_COLORS: Record<string, string> = {
-  '講演': 'bg-sky-50 text-sky-800 border-sky-200',
-  'メディア': 'bg-amber-50 text-amber-800 border-amber-200',
-  '表彰': 'bg-rose-50 text-rose-800 border-rose-200',
-  '予定': 'bg-indigo-50 text-indigo-800 border-indigo-200',
+  '講演': 'bg-sky-500/15 text-sky-200 border-sky-700/60',
+  'メディア': 'bg-amber-500/15 text-amber-200 border-amber-700/60',
+  '表彰': 'bg-rose-500/15 text-rose-200 border-rose-700/60',
+  '予定': 'bg-indigo-500/20 text-indigo-200 border-indigo-600/70',
 };
 
-export const TAG_COLOR_FALLBACK = 'bg-gray-50 text-gray-700 border-gray-200';
+export const TAG_COLOR_FALLBACK = 'bg-slate-700/40 text-slate-200 border-slate-600';
 
 // Long labels used inside the popup dialog (where links read like a menu).
 export const LINK_LABELS: Record<string, string> = {

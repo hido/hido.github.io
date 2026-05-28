@@ -21,24 +21,24 @@ const links: { title: string; url: string; source: string; date?: string }[] = [
   />
 
   <div class="flex gap-4 mb-8">
-    <a href="https://note.com/" target="_blank" rel="noopener" class="text-sm border border-gray-300 rounded px-3 py-1.5 hover:border-gray-500">
+    <a href="https://note.com/" target="_blank" rel="noopener" class="text-sm border border-slate-700 text-slate-300 rounded px-3 py-1.5 hover:border-sky-400 hover:text-sky-300">
       note を見る →
     </a>
-    <a href="https://twitter.com/sla" target="_blank" rel="noopener" class="text-sm border border-gray-300 rounded px-3 py-1.5 hover:border-gray-500">
+    <a href="https://twitter.com/sla" target="_blank" rel="noopener" class="text-sm border border-slate-700 text-slate-300 rounded px-3 py-1.5 hover:border-sky-400 hover:text-sky-300">
       X / Twitter を見る →
     </a>
   </div>
 
   {links.length === 0 ? (
-    <p class="text-gray-500 text-sm">準備中です。</p>
+    <p class="text-slate-500 text-sm">準備中です。</p>
   ) : (
-    <ul class="border-t border-gray-100">
+    <ul class="border-t border-slate-800">
       {links.map((item) => (
-        <li class="py-3 border-b border-gray-100">
+        <li class="py-3 border-b border-slate-800">
           <a href={item.url} target="_blank" rel="noopener" class="text-base">
             {item.title}
           </a>
-          <p class="text-xs text-gray-500 mt-1">
+          <p class="text-xs text-slate-500 mt-1">
             {item.source}{item.date ? ` · ${item.date}` : ''}
           </p>
         </li>
