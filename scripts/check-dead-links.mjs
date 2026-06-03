@@ -48,8 +48,10 @@ async function probe(url) {
   };
   try {
     let r = await fetch(url, { method: 'HEAD', ...opts });
-    if (r.status === 405 || r.status === 403) {
-      // Some servers refuse HEAD; retry with GET
+    // Some servers refuse HEAD (405/403) or lie about it (return 404 on HEAD
+    // but 200 on GET — observed on JBpress entry forms). Confirm with GET
+    // before flagging the URL as dead.
+    if (r.status === 405 || r.status === 403 || r.status === 404) {
       r = await fetch(url, { method: 'GET', ...opts });
     }
     return r.status;
