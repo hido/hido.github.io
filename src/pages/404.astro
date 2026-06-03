@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 — ページが見つかりません" width="narrow">
+  <section class="not-found">
+    <p class="code">404</p>
+    <h1>ページが見つかりません</h1>
+    <p class="lead">
+      お探しのページは移動・削除された可能性があります。
+      下のリンクから目的のページにお進みください。
+    </p>
+    <ul class="links">
+      <li><a href="/">トップに戻る</a></li>
+      <li><a href="/talks-and-media/">講演・メディア掲載</a></li>
+      <li><a href="/publications/">論文</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding: 64px 0;
+    text-align: center;
+  }
+  .code {
+    font-family: "Inter", ui-sans-serif, sans-serif;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin: 0 0 8px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .lead {
+    font-size: 14px;
+    color: var(--ink-secondary);
+    margin: 0 auto 32px;
+    max-width: 36ch;
+    line-height: 1.8;
+  }
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    justify-content: center;
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink-secondary);
+    padding: 7px 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 9999px;
+    background: var(--bg-surface);
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    text-decoration: none;
+  }
+  .links a:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft-bg);
+    color: var(--ink);
+    text-decoration: none;
+  }
+</style>

@@ -113,6 +113,10 @@ function navLinkClass(href: string) {
     border-color: var(--accent);
     background: var(--accent-soft-bg);
   }
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
   .theme-icon { width: 16px; height: 16px; }
   /* Show sun in dark mode (click → switch to light), moon in light mode. */
   .icon-sun { display: none; }
