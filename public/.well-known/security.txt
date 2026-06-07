@@ -1,0 +1,4 @@
+Contact: https://github.com/hido/hido.github.io/security/advisories/new
+Expires: 2027-06-03T17:59:50Z
+Preferred-Languages: ja, en
+Canonical: https://hido.github.io/.well-known/security.txt
