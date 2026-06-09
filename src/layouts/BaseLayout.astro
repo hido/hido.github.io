@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { THEME_INIT, GTAG_INIT } from '../security/inline-scripts.mjs';
 
 interface Props {
   title?: string;
@@ -46,17 +47,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://hido.github
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    {/* Security headers via meta http-equiv (GitHub Pages can't set HTTP headers).
-        CSP allowlists self + GA4 (gtag, collect, region routing, conversion linker).
-        'unsafe-inline' on script-src is required by the inline gtag/theme-init
-        blocks and Astro's bundled module scripts; styles need it for component
-        <style> blocks Astro inlines. Default-src 'none' tightens directives not
-        otherwise enumerated. frame-ancestors / X-Frame-Options can't be set
-        from meta — accept the limitation for a static GitHub Pages site. */}
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.g.doubleclick.net; font-src 'self' data:; frame-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
-    />
+    {/* CSP is injected at build time by Astro (experimental.csp in
+        astro.config.mjs) with sha256 hashes instead of 'unsafe-inline'.
+        GitHub Pages can't set HTTP headers, hence meta delivery. */}
     {/* Permissions-Policy: deny every powerful feature the site doesn't use.
         Defense-in-depth against future regressions (e.g. an embedded widget
         that asks for camera/mic). Empty allowlist = blocked entirely. */}
@@ -84,32 +77,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://hido.github
     <link rel="alternate" type="application/rss+xml" title="比戸 将平 — Shohei Hido" href="/rss.xml" />
     <title>{title}</title>
 
-    <!-- Theme init: resolve saved preference or OS hint BEFORE first paint
-         so the page doesn't flash the opposite scheme. Runs synchronously
-         because it sits in <head> and writes data-theme on <html>. -->
-    <script is:inline>
-      (function () {
-        try {
-          var saved = localStorage.getItem('theme');
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var theme = saved === 'light' || saved === 'dark'
-            ? saved
-            : (prefersDark ? 'dark' : 'light');
-          document.documentElement.dataset.theme = theme;
-        } catch (e) {
-          document.documentElement.dataset.theme = 'light';
-        }
-      })();
-    </script>
+    <!-- Inline script bodies live in src/security/inline-scripts.mjs so the
+         CSP hashes registered in astro.config.mjs always match what renders
+         here. Theme init must stay inline in <head> to avoid a FOUC. -->
+    <script is:inline set:html={THEME_INIT} />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VFWBCZCM1D"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VFWBCZCM1D');
-    </script>
+    <script is:inline set:html={GTAG_INIT} />
   </head>
   <body class="text-ink bg-canvas">
     <SiteHeader />
