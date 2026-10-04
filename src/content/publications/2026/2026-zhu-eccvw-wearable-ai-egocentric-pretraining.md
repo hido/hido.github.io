@@ -5,5 +5,6 @@ venue: "ECCV 2026 Workshop on Wearable AI (WearableAI 2026, Malmö)"
 authors: "Zhi Zhu, Naoki Yoshida, Yoshinao Sato, Yoshifumi Seki, Shohei Hido"
 type: publication
 links:
-  web: "https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/WearableAI#tab-accept"
+  paper: "https://openreview.net/pdf?id=iTJ8zq6PNN"
+  web: "https://openreview.net/forum?id=iTJ8zq6PNN"
 ---
