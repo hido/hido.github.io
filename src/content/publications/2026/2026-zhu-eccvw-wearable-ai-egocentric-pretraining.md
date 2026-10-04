@@ -6,6 +6,6 @@ authors: "Zhi Zhu, Naoki Yoshida, Yoshinao Sato, Yoshifumi Seki, Shohei Hido"
 thumbnail: "/thumbnails/pub-2026-zhu-eccvw-wearable-ai-egocentric-pretraining.jpg"
 type: publication
 links:
-  paper: "https://openreview.net/pdf?id=iTJ8zq6PNN"
+  paper: "https://openreview.net/forum?id=iTJ8zq6PNN"
   web: "https://wearable-ai-workshop.github.io/"
 ---
