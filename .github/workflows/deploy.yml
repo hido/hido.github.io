@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Daily rebuild so "予定" badges / register links expire without a push
+  # (isUpcoming is computed at build time). 15:05 UTC = 00:05 JST.
+  schedule:
+    - cron: '5 15 * * *'
   workflow_dispatch:
 
 permissions:
