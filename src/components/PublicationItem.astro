@@ -28,7 +28,7 @@ const tagColor = tag === 'パテント'
 function paperBadgeLabel(url: string): string {
   if (url.includes('patents.google.com')) return 'Google Patent';
   if (/^https?:\/\/arxiv\.org\//.test(url)) return 'arXiv';
-  if (/\.pdf(\?|#|$)/i.test(url)) return 'PDF';
+  if (/\.pdf(\?|#|$)/i.test(url) || /openreview\.net\/pdf\b/.test(url)) return 'PDF';
   return 'Paper';
 }
 

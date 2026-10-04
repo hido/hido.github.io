@@ -7,5 +7,5 @@ thumbnail: "/thumbnails/pub-2026-zhu-eccvw-wearable-ai-egocentric-pretraining.jp
 type: publication
 links:
   paper: "https://openreview.net/pdf?id=iTJ8zq6PNN"
-  web: "https://openreview.net/forum?id=iTJ8zq6PNN"
+  web: "https://wearable-ai-workshop.github.io/"
 ---
