@@ -45,7 +45,7 @@ const primaryLink = links?.paper ?? links?.web ?? links?.slides;
       class="shrink-0 self-stretch block w-40 bg-surface border border-border-soft rounded overflow-hidden"
       aria-label="サムネイル"
     >
-      <img src={thumbnail} alt="" class="w-full h-full object-contain" />
+      <img src={thumbnail} alt="" loading="lazy" decoding="async" class="w-full h-full object-contain" />
     </a>
   ) : (
     <div class="shrink-0 self-stretch w-40 bg-elevated border border-dashed border-border-soft rounded" aria-hidden="true"></div>

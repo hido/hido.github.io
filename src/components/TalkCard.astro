@@ -67,7 +67,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
   <button type="button" class="card-trigger w-full text-left bg-transparent border-0 p-0 cursor-pointer">
     {thumbnail && (
       <div class="relative aspect-video bg-elevated overflow-hidden">
-        <img src={thumbnail} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        <img src={thumbnail} alt="" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         {copyright && (
           <span class="absolute bottom-1 right-1 text-[9px] leading-none text-white/90 bg-black/55 px-1 py-0.5 rounded tracking-wide">
             © {copyright}
@@ -103,7 +103,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     <button type="button" class="dialog-close" aria-label="閉じる">×</button>
     {thumbnail && (
       <div class="dialog-thumb">
-        <img src={thumbnail} alt="" />
+        <img src={thumbnail} alt="" loading="lazy" decoding="async" />
         {copyright && (
           <span class="dialog-copyright">© {copyright}</span>
         )}

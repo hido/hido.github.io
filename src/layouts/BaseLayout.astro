@@ -3,6 +3,8 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { THEME_INIT, GTAG_INIT } from '../security/inline-scripts.mjs';
+import interLatinUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import notoJpUrl from '@fontsource-variable/noto-sans-jp/files/noto-sans-jp-119-wght-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -45,6 +47,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://hido.github
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="preload" href={interLatinUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={notoJpUrl} as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
 
     {/* CSP is injected at build time by Astro (experimental.csp in
