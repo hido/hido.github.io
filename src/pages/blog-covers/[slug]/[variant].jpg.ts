@@ -3,7 +3,7 @@
 //   /blog-covers/<slug>/note.jpg  note 見出し画像 (1280×670)
 //   /blog-covers/<slug>/x.jpg     X Article cover (5:2)
 //
-// With `cover:` set, the image is center-cropped to each size (sharp also
+// With cover.jpg / cover.png in the post folder, it is center-cropped to each size (sharp also
 // drops EXIF, so phone GPS data never ships). Without it, a title card is
 // drawn with satori in the same style as /og/*.png. Drafts get covers too,
 // so they can be downloaded for note / X before the note URL exists.
@@ -16,7 +16,7 @@ import { html as parseHTML } from 'satori-html';
 import { Resvg } from '@resvg/resvg-js';
 import {
   allBlogPosts,
-  blogDir,
+  coverSource,
   blogSlug,
   COVER_SIZES,
   type BlogEntry,
@@ -100,8 +100,9 @@ async function titleCard(title: string, width: number, height: number): Promise<
 
 async function render(post: BlogEntry, variant: CoverVariant): Promise<Buffer> {
   const { width, height } = COVER_SIZES[variant];
-  const source = post.data.cover
-    ? readFileSync(resolve(root, blogDir(post), post.data.cover))
+  const cover = coverSource(post);
+  const source = cover
+    ? readFileSync(resolve(root, cover))
     : await titleCard(post.data.title, width, height);
   return sharp(source)
     .rotate() // honor EXIF orientation before it is stripped

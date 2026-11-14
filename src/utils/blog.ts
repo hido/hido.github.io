@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { dirname, basename } from 'node:path';
+import { dirname, basename, join } from 'node:path';
+import { existsSync } from 'node:fs';
 
 export type BlogEntry = CollectionEntry<'blog'>;
 
@@ -10,9 +11,16 @@ export function blogSlug(entry: BlogEntry): string {
   return basename(dirname(entry.filePath ?? entry.id));
 }
 
-/** Folder holding index.md + images, relative to the project root. */
+/** Folder holding the manuscript + images, relative to the project root. */
 export function blogDir(entry: BlogEntry): string {
   return dirname(entry.filePath!);
+}
+
+const COVER_NAMES = ['cover.jpg', 'cover.jpeg', 'cover.png', 'cover.webp'];
+
+/** cover.jpg / cover.png … in the post folder, if present (project-relative). */
+export function coverSource(entry: BlogEntry): string | undefined {
+  return COVER_NAMES.map((n) => join(blogDir(entry), n)).find((p) => existsSync(p));
 }
 
 export type CoverVariant = 'card' | 'note' | 'x';
@@ -57,7 +65,17 @@ export function blogExcerpt(entry: BlogEntry, length = EXCERPT_LENGTH): string {
 
 /** Every post folder (drafts included) — used for cover generation. */
 export async function allBlogPosts(): Promise<BlogEntry[]> {
-  return getCollection('blog');
+  const posts = await getCollection('blog');
+  // One manuscript per folder: two .md files would fight over one slug.
+  const seen = new Map<string, string>();
+  for (const p of posts) {
+    const slug = blogSlug(p);
+    if (seen.has(slug)) {
+      throw new Error(`blog: more than one .md in ${blogDir(p)} (${seen.get(slug)}, ${p.filePath})`);
+    }
+    seen.set(slug, p.filePath!);
+  }
+  return posts;
 }
 
 /** Posts that are live on note, newest first. */

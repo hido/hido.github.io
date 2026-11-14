@@ -99,14 +99,14 @@ const awards = defineCollection({
 // the body — it only lists posts as cards linking out to note, with a
 // short excerpt taken from the start of the body.
 //
-//   src/content/blog/<year>/<YYYY-MM-DD-slug>/index.md
-//   src/content/blog/<year>/<YYYY-MM-DD-slug>/cover.jpg   (optional)
-//   src/content/blog/<year>/<YYYY-MM-DD-slug>/*.png       (in-body images)
+//   src/content/blog/<year>/<YYYY-MM-DD-slug>/<any>.md           manuscript (one per folder)
+//   src/content/blog/<year>/<YYYY-MM-DD-slug>/cover.jpg|cover.png  cover (optional)
+//   src/content/blog/<year>/<YYYY-MM-DD-slug>/*                    in-body images
 //
 // A post appears on the site only once `note` is set. Until then it is a
 // draft — but note the repo is public, so drafts are readable on GitHub.
 const blog = defineCollection({
-  loader: glob({ pattern: '**/index.md', base: './src/content/blog' }),
+  loader: glob({ pattern: '*/*/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -114,10 +114,6 @@ const blog = defineCollection({
     note: z.string().url().optional(),
     // Same post published as an X Article, if any.
     x: z.string().url().optional(),
-    // Cover image file name, relative to the post folder. When unset a
-    // title card is generated. Either way /blog-covers/<slug>/{card,note,x}.jpg
-    // are produced at build time for the site card and for uploading.
-    cover: z.string().optional(),
     // Override the auto-generated excerpt (first ~100 chars of the body).
     excerpt: z.string().optional(),
   }),

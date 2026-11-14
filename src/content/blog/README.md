@@ -11,14 +11,14 @@ note が正（canonical）。このリポジトリは原稿と画像を保管す
 
 ```
 src/content/blog/<年>/<YYYY-MM-DD-slug>/
-  index.md     原稿（Markdown）
-  cover.jpg    カバー画像（任意）
-  fig1.png …   本文中の画像
+  <好きな名前>.md          原稿（Markdown、1フォルダに1つ）
+  cover.jpg / cover.png   カバー画像（任意。この名前なら自動で使われる）
+  fig1.png …              本文中の画像
 ```
 
 フォルダ名（`YYYY-MM-DD-slug`）がそのまま URL の slug になる。英数字とハイフンで付ける。
 
-## index.md の書き方
+## 原稿 md の書き方
 
 ```markdown
 ---
@@ -26,7 +26,6 @@ title: "記事タイトル"
 date: 2026-11-20
 note: "https://note.com/…/n/…"   # note 公開後に追加。未設定なら下書き扱いでサイトに出ない
 x: "https://x.com/sla/article/…" # X 記事にも載せたら追加（任意）
-cover: cover.jpg                  # 任意。なければタイトルカードを自動生成
 # excerpt: "抜粋を手で書きたいときだけ"
 ---
 
@@ -35,13 +34,12 @@ cover: cover.jpg                  # 任意。なければタイトルカード�
 ![図1](./fig1.png)
 
 …
-
-初出：https://note.com/…（2026年11月20日）
 ```
 
 ## 公開の流れ
 
-1. フォルダを作って `index.md` と画像を置き、push する（`note` はまだ書かない）。
+1. フォルダを作って原稿 md と画像（あれば cover.jpg / cover.png）を置き、push する（`note` はまだ書かない）。
+   - cover がなければタイトルカードが自動生成される。
    - この時点でカバー画像がビルドされる。下書きはサイトの一覧には出ない。
 2. カバー画像をダウンロードして note / X に使う。
    - note 見出し画像（1280×670）：`https://hido.github.io/blog-covers/<slug>/note.jpg`
@@ -50,7 +48,7 @@ cover: cover.jpg                  # 任意。なければタイトルカード�
    - 写真は中央で切り抜かれ、EXIF（位置情報など）は削除される。
 3. note に投稿する。末尾に「初出」を書かない（note が正なので不要）。
 4. X 記事にも載せるなら、末尾に note へのリンクを書く。
-5. `index.md` に `note:`（と `x:`）を追加して push → サイトに出る。
+5. 原稿 md に `note:`（と `x:`）を追加して push → サイトに出る。
 
 ## 注意
 
