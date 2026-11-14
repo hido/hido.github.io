@@ -19,6 +19,8 @@ interface Props {
     report?: string | string[];
     press?: string;
     paper?: string;
+    note?: string;
+    x?: string;
   };
   thumbnail?: string;
   copyright?: string;
@@ -78,7 +80,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     <div class="px-4 pt-4 pb-2">
       {dateStr && <p class="text-xs text-ink-faint mb-1.5">{dateStr}</p>}
       <h3 class="text-base font-medium leading-snug text-ink mb-2 group-hover:text-accent transition-colors">{title}</h3>
-      <p class="text-sm text-ink-muted leading-relaxed whitespace-pre-line">{event}</p>
+      {event && <p class="text-sm text-ink-muted leading-relaxed whitespace-pre-line">{event}</p>}
     </div>
   </button>
 
@@ -87,6 +89,8 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
       {isUpcoming && links.register && (
         <a href={links.register} target="_blank" rel="noopener" class="card-pill is-register">申込 →</a>
       )}
+      {links.note && <a href={links.note} target="_blank" rel="noopener" class="card-pill">note</a>}
+      {links.x && <a href={links.x} target="_blank" rel="noopener" class="card-pill">X</a>}
       {links.web && <a href={links.web} target="_blank" rel="noopener" class="card-pill">Web</a>}
       {links.press && <a href={links.press} target="_blank" rel="noopener" class="card-pill is-press">Press</a>}
       {links.slides && <a href={links.slides} target="_blank" rel="noopener" class="card-pill">Slides</a>}

@@ -6,13 +6,15 @@ import PublicationItem from '../components/PublicationItem.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { mergeContentItems } from '../utils/content-items';
 import { publicationTag } from '../utils/publication-tag';
+import { publishedBlogPosts } from '../utils/blog';
 
-const [allTalks, allPress, allAwards] = await Promise.all([
+const [allTalks, allPress, allAwards, blogPosts] = await Promise.all([
   getCollection('talks'),
   getCollection('press'),
   getCollection('awards'),
+  publishedBlogPosts(),
 ]);
-const recentTopItems = mergeContentItems(allTalks, allPress, allAwards).slice(0, 8);
+const recentTopItems = mergeContentItems(allTalks, allPress, allAwards, blogPosts).slice(0, 8);
 
 const allPublications = await getCollection('publications');
 const recentPublications = allPublications

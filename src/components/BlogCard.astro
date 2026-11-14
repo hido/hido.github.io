@@ -1,0 +1,65 @@
+---
+// Blog listing card. Larger than TalkCard: it carries a ~100-char excerpt
+// from the start of the post. The whole card body links straight to note
+// (the canonical copy); the footer adds an X link when the post was also
+// published as an X Article.
+interface Props {
+  title: string;
+  date: Date;
+  excerpt: string;
+  note: string;
+  x?: string;
+  thumbnail: string;
+}
+
+const { title, date, excerpt, note, x, thumbnail } = Astro.props;
+
+const dateStr = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Tokyo',
+}).format(date);
+---
+
+<article class="group relative flex flex-col border border-border-soft rounded-lg overflow-hidden bg-surface hover:border-border-strong hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-200">
+  <a href={note} target="_blank" rel="noopener" class="blog-card-link flex flex-col flex-1 text-inherit no-underline hover:no-underline">
+    <div class="relative aspect-video bg-elevated overflow-hidden">
+      <img src={thumbnail} alt="" loading="lazy" decoding="async" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+    </div>
+    <div class="px-5 pt-4 pb-3 flex-1">
+      <p class="text-xs text-ink-faint mb-1.5">{dateStr}</p>
+      <h2 class="text-lg font-medium leading-snug text-ink mb-2.5 group-hover:text-accent transition-colors">{title}</h2>
+      <p class="text-sm text-ink-muted leading-relaxed">{excerpt}</p>
+    </div>
+  </a>
+  <div class="px-5 pb-4 flex flex-wrap gap-1.5">
+    <a href={note} target="_blank" rel="noopener" class="blog-pill">note で読む →</a>
+    {x && <a href={x} target="_blank" rel="noopener" class="blog-pill">X</a>}
+  </div>
+</article>
+
+<style>
+  .blog-card-link:focus-visible {
+    outline: 2px solid rgb(56 189 248); /* sky-400 */
+    outline-offset: -2px;
+  }
+  .blog-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent-text);
+    background: var(--accent-soft-bg);
+    text-decoration: none;
+    padding: 3px 11px;
+    border-radius: 9999px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .blog-pill:hover {
+    background: var(--accent-soft-bg-hover);
+    color: var(--accent-hover);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+</style>

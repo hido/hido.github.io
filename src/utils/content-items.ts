@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { blogExcerpt, coverUrl } from './blog';
 
 export type ContentItem = {
   id: string;
@@ -18,6 +19,8 @@ export type ContentItem = {
     report?: string | string[];
     press?: string;
     paper?: string;
+    note?: string;
+    x?: string;
   };
   thumbnail?: string;
   copyright?: string;
@@ -27,6 +30,9 @@ export function mergeContentItems(
   talks: CollectionEntry<'talks'>[],
   press: CollectionEntry<'press'>[],
   awards: CollectionEntry<'awards'>[],
+  // Only the top page passes blog posts: they get their own Blog page and
+  // stay out of 講演・メディア. Pass published posts only.
+  blog: CollectionEntry<'blog'>[] = [],
 ): ContentItem[] {
   const now = Date.now();
   const isUpcoming = (d?: Date) => (d ? d.getTime() > now : false);
@@ -65,6 +71,18 @@ export function mergeContentItems(
       links: a.data.links,
       thumbnail: a.data.thumbnail,
       copyright: a.data.copyright,
+    })),
+    // Title-only card (same size as the others); the excerpt goes in the
+    // popup dialog instead of the card body.
+    ...blog.map((b) => ({
+      id: b.id,
+      title: b.data.title,
+      date: b.data.date,
+      subtitle: '',
+      subtitleDetail: blogExcerpt(b),
+      tag: 'ブログ',
+      links: { note: b.data.note, x: b.data.x },
+      thumbnail: coverUrl(b, 'card'),
     })),
   ];
 

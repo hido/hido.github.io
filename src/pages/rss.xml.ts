@@ -1,4 +1,4 @@
-// Single combined feed for talks / press / awards / publications.
+// Single combined feed for talks / press / awards / publications / blog.
 // Item link points back to /talks-and-media/ or /publications/ since
 // individual entries don't have their own pages — the listing pages
 // are the canonical view.
@@ -7,13 +7,15 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { mergeContentItems } from '../utils/content-items';
+import { publishedBlogPosts, blogExcerpt } from '../utils/blog';
 
 export async function GET(context: APIContext) {
-  const [talks, press, awards, publications] = await Promise.all([
+  const [talks, press, awards, publications, blogPosts] = await Promise.all([
     getCollection('talks'),
     getCollection('press'),
     getCollection('awards'),
     getCollection('publications'),
+    publishedBlogPosts(),
   ]);
 
   const merged = mergeContentItems(talks, press, awards);
@@ -47,14 +49,23 @@ export async function GET(context: APIContext) {
     categories: ['Publication'],
   }));
 
-  const items = [...talkItems, ...pubItems].sort(
+  // Blog items link to note, the canonical copy.
+  const blogItems: Item[] = blogPosts.map((b) => ({
+    title: `[ブログ] ${b.data.title}`,
+    pubDate: b.data.date,
+    description: blogExcerpt(b),
+    link: b.data.note!,
+    categories: ['Blog'],
+  }));
+
+  const items = [...talkItems, ...pubItems, ...blogItems].sort(
     (a, b) => b.pubDate.getTime() - a.pubDate.getTime(),
   );
 
   return rss({
     title: '比戸 将平 — Shohei Hido',
     description:
-      '講演・メディア掲載・受賞・論文の更新フィード。Recent talks, press, awards, and publications.',
+      '講演・メディア掲載・受賞・論文・ブログの更新フィード。Recent talks, press, awards, publications, and blog posts.',
     site: context.site ?? 'https://hido.github.io',
     items,
     customData: '<language>ja</language>',

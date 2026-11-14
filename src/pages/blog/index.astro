@@ -1,23 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeading from '../../components/PageHeading.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import YearHeading from '../../components/YearHeading.astro';
+import { publishedBlogPosts, blogExcerpt, coverUrl } from '../../utils/blog';
+import { groupByYear } from '../../utils/group-by-year';
 
-// Edit this list to add note / X (Twitter) / Medium articles, etc.
-const links: { title: string; url: string; source: string; date?: string }[] = [
-  // {
-  //   title: '記事タイトル',
-  //   url: 'https://note.com/...',
-  //   source: 'note',
-  //   date: '2025-01-01',
-  // },
-];
+// Posts live on note; this page only lists them. See src/content.config.ts.
+const posts = await publishedBlogPosts();
+const { grouped, orderedKeys } = groupByYear(posts, (p) => p.data.date);
 ---
 
 <BaseLayout title="Blog — 比戸 将平">
   <PageHeading
     title="Blog"
     en="Notes & posts"
-    description="note や X（Twitter）など外部メディアに掲載された記事へのリンクをまとめています。"
+    description="note に書いた記事の一覧です。"
   />
 
   <div class="flex gap-4 mb-8">
@@ -29,20 +27,25 @@ const links: { title: string; url: string; source: string; date?: string }[] = [
     </a>
   </div>
 
-  {links.length === 0 ? (
+  {posts.length === 0 ? (
     <p class="text-ink-faint text-sm">準備中です。</p>
   ) : (
-    <ul class="border-t border-border-soft">
-      {links.map((item) => (
-        <li class="py-3 border-b border-border-soft">
-          <a href={item.url} target="_blank" rel="noopener" class="text-base">
-            {item.title}
-          </a>
-          <p class="text-xs text-ink-faint mt-1">
-            {item.source}{item.date ? ` · ${item.date}` : ''}
-          </p>
-        </li>
-      ))}
-    </ul>
+    orderedKeys.map((key) => (
+      <section class="mb-12">
+        <YearHeading yearKey={key} count={grouped.get(key)!.length} />
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {grouped.get(key)!.map((p) => (
+            <BlogCard
+              title={p.data.title}
+              date={p.data.date}
+              excerpt={blogExcerpt(p)}
+              note={p.data.note!}
+              x={p.data.x}
+              thumbnail={coverUrl(p, 'card')}
+            />
+          ))}
+        </div>
+      </section>
+    ))
   )}
 </BaseLayout>

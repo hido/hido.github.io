@@ -17,6 +17,7 @@ npm run preview  # build 後のローカル確認
 - 論文: `src/content/publications/<year>/<slug>.md`
 - メディア掲載: `src/content/press/<year>/<slug>.md`
 - 表彰: `src/content/awards/<year>/<slug>.md`
+- ブログ: `src/content/blog/<year>/<YYYY-MM-DD-slug>/index.md`（note が正。手順は [`src/content/blog/README.md`](content/blog/README.md)）
 - 2023 年以降は年度フォルダ、2022 年以前は `archive/` に配置。
 
 スキーマは `src/content.config.ts` を参照。

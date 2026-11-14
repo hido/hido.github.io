@@ -94,4 +94,33 @@ const awards = defineCollection({
   }),
 });
 
-export const collections = { talks, publications, press, awards };
+// Blog: note is the canonical home of every post. The repo keeps the
+// manuscript + images (one folder per post) but the site never renders
+// the body — it only lists posts as cards linking out to note, with a
+// short excerpt taken from the start of the body.
+//
+//   src/content/blog/<year>/<YYYY-MM-DD-slug>/index.md
+//   src/content/blog/<year>/<YYYY-MM-DD-slug>/cover.jpg   (optional)
+//   src/content/blog/<year>/<YYYY-MM-DD-slug>/*.png       (in-body images)
+//
+// A post appears on the site only once `note` is set. Until then it is a
+// draft — but note the repo is public, so drafts are readable on GitHub.
+const blog = defineCollection({
+  loader: glob({ pattern: '**/index.md', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    // Published note article (canonical). Unset = draft, hidden on site.
+    note: z.string().url().optional(),
+    // Same post published as an X Article, if any.
+    x: z.string().url().optional(),
+    // Cover image file name, relative to the post folder. When unset a
+    // title card is generated. Either way /blog-covers/<slug>/{card,note,x}.jpg
+    // are produced at build time for the site card and for uploading.
+    cover: z.string().optional(),
+    // Override the auto-generated excerpt (first ~100 chars of the body).
+    excerpt: z.string().optional(),
+  }),
+});
+
+export const collections = { talks, publications, press, awards, blog };
