@@ -12,15 +12,19 @@ export default defineConfig({
     '/talks': '/talks-and-media',
     '/press': '/talks-and-media',
   },
+  // No code blocks in content; Shiki's inline styles would conflict with the
+  // CSP below, so keep highlighting off.
+  markdown: {
+    syntaxHighlight: false,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
-  experimental: {
+  security: {
     // Build-time CSP: Astro hashes every processed inline script/style and
     // injects a per-page <meta http-equiv="Content-Security-Policy">, which
     // lets us drop 'unsafe-inline' entirely (GitHub Pages can't set HTTP
     // headers). Not applied in `astro dev` — use build+preview to test.
-    // Renames to `security.csp` on the Astro 6 upgrade.
     csp: {
       algorithm: 'SHA-256',
       // Directives other than script-src / style-src, which Astro manages.
