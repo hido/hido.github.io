@@ -67,9 +67,10 @@ function template({ eyebrow, title, subtitle, accent }) {
     <div style="display:flex; flex-direction:column; width:100%; height:100%; background:#ffffff; font-family:'Noto Sans JP';">
       <div style="display:flex; height:8px; background:${accent};"></div>
       <div style="display:flex; flex:1; align-items:center; padding:56px 72px; gap:60px;">
+        <!-- satori >=0.4x draws the border outside width/height: 268 + 2*6 = 280px. -->
         <img
           src="${profileDataUri}"
-          style="width:280px; height:280px; border-radius:140px; border:6px solid #e5e7eb; object-fit:cover;"
+          style="width:268px; height:268px; border-radius:140px; border:6px solid #e5e7eb; object-fit:cover;"
         />
         <div style="display:flex; flex-direction:column; flex:1;">
           <div style="display:flex; font-size:24px; color:${accent}; font-weight:700; letter-spacing:0.04em; margin-bottom:14px;">${eyebrow}</div>
