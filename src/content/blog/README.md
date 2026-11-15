@@ -47,7 +47,7 @@ x: "https://x.com/sla/article/…" # X 記事にも載せたら追加（任意�
    - サイトのカード（16:9）：`https://hido.github.io/blog-covers/<slug>/card.jpg`
    - 写真は中央で切り抜かれ、EXIF（位置情報など）は削除される。
 3. note に投稿する。末尾に「初出」を書かない（note が正なので不要）。
-4. X 記事にも載せるなら、末尾に note へのリンクを書く。
+4. X 記事にも載せるなら、冒頭に「（オリジナルはnoteに）」と書いて note の記事 URL をリンクする。
 5. 原稿 md に `note:`（と `x:`）を追加して push → サイトに出る。
 
 ## 注意

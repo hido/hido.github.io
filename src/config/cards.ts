@@ -16,7 +16,7 @@ export const TAG_COLOR_FALLBACK =
 // Long labels used inside the popup dialog (where links read like a menu).
 export const LINK_LABELS: Record<string, string> = {
   note: 'note で読む',
-  x: 'X 記事',
+  x: 'X で読む',
   register: '申込ページ',
   web: '公式サイト・イベントページ',
   press: 'プレスリリース',
