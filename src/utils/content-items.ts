@@ -24,6 +24,8 @@ export type ContentItem = {
   };
   thumbnail?: string;
   copyright?: string;
+  // Clamp the card subtitle to 2 lines (blog captions / excerpts).
+  subtitleClamp?: boolean;
 };
 
 export function mergeContentItems(
@@ -72,13 +74,14 @@ export function mergeContentItems(
       thumbnail: a.data.thumbnail,
       copyright: a.data.copyright,
     })),
-    // Title-only card (same size as the others); the excerpt goes in the
-    // popup dialog instead of the card body.
+    // Same size as the other cards: a 2-line caption under the title; the
+    // full excerpt goes in the popup dialog.
     ...blog.map((b) => ({
       id: b.id,
       title: b.data.title,
       date: b.data.date,
-      subtitle: '',
+      subtitle: b.data.caption ?? blogExcerpt(b),
+      subtitleClamp: true,
       subtitleDetail: blogExcerpt(b),
       tag: 'ブログ',
       links: { note: b.data.note, x: b.data.x },

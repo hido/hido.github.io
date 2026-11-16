@@ -114,6 +114,9 @@ const blog = defineCollection({
     note: z.string().url().optional(),
     // Same post published as an X Article, if any.
     x: z.string().url().optional(),
+    // One-liner for the top page card (≤30 chars fits 2 lines at every
+    // width). Falls back to the excerpt, clamped to 2 lines.
+    caption: z.string().optional(),
     // Override the auto-generated excerpt (first ~100 chars of the body).
     excerpt: z.string().optional(),
   }),

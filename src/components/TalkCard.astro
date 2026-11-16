@@ -25,9 +25,11 @@ interface Props {
   thumbnail?: string;
   copyright?: string;
   compact?: boolean;
+  // Clamp `event` to 2 lines on the card (full text stays in the dialog).
+  eventClamp?: boolean;
 }
 
-const { title, date, event, eventDetail, tag, isUpcoming = false, links, thumbnail, copyright, compact = false } = Astro.props;
+const { title, date, event, eventDetail, tag, isUpcoming = false, links, thumbnail, copyright, compact = false, eventClamp = false } = Astro.props;
 const dialogSubtitle = eventDetail ?? event;
 const upcomingColor = TAG_COLORS['予定'] ?? TAG_COLOR_FALLBACK;
 
@@ -80,7 +82,7 @@ const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
     <div class="px-4 pt-4 pb-2">
       {dateStr && <p class="text-xs text-ink-faint mb-1.5">{dateStr}</p>}
       <h3 class="text-base font-medium leading-snug text-ink mb-2 group-hover:text-accent transition-colors">{title}</h3>
-      {event && <p class="text-sm text-ink-muted leading-relaxed whitespace-pre-line">{event}</p>}
+      {event && <p class:list={['text-sm text-ink-muted leading-relaxed whitespace-pre-line', eventClamp && 'line-clamp-2']}>{event}</p>}
     </div>
   </button>
 

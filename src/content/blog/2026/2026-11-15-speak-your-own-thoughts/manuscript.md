@@ -3,6 +3,7 @@ title: "自分の思索くらい、自分で語れ、ばかものよ"
 date: 2026-11-15
 note: "https://note.com/shoheihido/n/n4f2eae1b3aec"
 x: "https://x.com/sla/status/2122110506479845378"
+caption: "生成AI時代にこそ、言葉の主導権を手放してはいけない理由。"
 ---
 
 「俺、文章下手だなぁ」と思っている。子供の頃から、45歳になった今までずっと。
